@@ -1,0 +1,1 @@
+<file>file:/E:/my_stuff/workings/java%20projects/inventory%20management%20sys%20(anuhas)/increment%204/InventorySys/src/JujubesInventoryManager/Backend/SQLManagerNew.java</file>
