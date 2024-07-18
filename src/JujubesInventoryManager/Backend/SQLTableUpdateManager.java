@@ -25,7 +25,7 @@ public class SQLTableUpdateManager extends SQLManagerNew{
         String query5 = "update stock set buying_price = ? where stock_id = ?;";
         String query6 = "update stock set selling_price = ? where stock_id = ?;";
         String query7 = "update stock set buying_date = ? where stock_id = ?;"; 
-
+ 
         if(category!=-1){
             insertData(query1, new Object[]{category,stock_id});
             System.out.println("category updated");
