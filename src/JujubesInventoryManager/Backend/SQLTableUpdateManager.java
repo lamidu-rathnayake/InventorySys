@@ -16,7 +16,7 @@ import java.util.List;
 public class SQLTableUpdateManager extends SQLManagerNew{
     //change stock details
     // addNewStock(int stock_id, String category, String size, String color, int quantity, double buying_price,double selling_price, String buying_date)
-    public static void changeStockDetails(int stock_id, int category, int size, int color, int quantity, double buying_price,double selling_price, String buying_date){
+    public static void changeStockDetails(int stock_id, int category, int size, int color, int quantity, double buying_price, double selling_price, String buying_date){
 
         String query1 = "update stock set category_id = ? where stock_id = ?;";
         String query2 = "update stock set size_id = ? where stock_id = ?;";
