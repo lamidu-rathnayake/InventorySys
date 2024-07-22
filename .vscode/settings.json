@@ -1,6 +1,0 @@
-{
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "e:\\my_stuff\\workings\\java projects\\inventory management sys (anuhas)\\mysql-connector-j-8.3.0\\mysql-connector-j-8.3.0\\mysql-connector-j-8.3.0.jar"
-    ]
-}
