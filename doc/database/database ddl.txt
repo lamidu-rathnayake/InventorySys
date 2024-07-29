@@ -1,0 +1,68 @@
+CREATE DATABASE new_cloth_shop_test;
+USE new_cloth_shop_test;
+
+CREATE TABLE `category` (
+  `category_id` int NOT NULL,
+  `category_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `color` (
+  `color_id` int NOT NULL,
+  `color_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`color_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `customer` (
+  `customer_id` int NOT NULL,
+  `customer_name` varchar(255) DEFAULT NULL,
+  `customer_contact` varchar(20) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `email_address` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `size` (
+  `size_id` int NOT NULL,
+  `size_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`size_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `stock` (
+  `stock_id` int NOT NULL,
+  `category_id` int DEFAULT NULL,
+  `color_id` int DEFAULT NULL,
+  `size_id` int DEFAULT NULL,
+  `quantity` int DEFAULT NULL,
+  `buying_price` decimal(10,2) DEFAULT NULL,
+  `selling_price` decimal(10,2) DEFAULT NULL,
+  `buying_date` date DEFAULT NULL,
+  PRIMARY KEY (`stock_id`),
+  KEY `category_id` (`category_id`),
+  KEY `color_id` (`color_id`),
+  KEY `size_id` (`size_id`),
+  CONSTRAINT `stock_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`),
+  CONSTRAINT `stock_ibfk_2` FOREIGN KEY (`color_id`) REFERENCES `color` (`color_id`),
+  CONSTRAINT `stock_ibfk_3` FOREIGN KEY (`size_id`) REFERENCES `size` (`size_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `transaction` (
+  `transaction_id` int NOT NULL,
+  `customer_id` int DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `total_amount` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`transaction_id`),
+  KEY `customer_id` (`customer_id`),
+  CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `transaction_items` (
+  `transaction_id` int NOT NULL,
+  `stock_id` int NOT NULL,
+  `quantity` int DEFAULT NULL,
+  `amount` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`transaction_id`,`stock_id`),
+  KEY `stock_id` (`stock_id`),
+  CONSTRAINT `transaction_items_ibfk_1` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`transaction_id`),
+  CONSTRAINT `transaction_items_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`stock_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

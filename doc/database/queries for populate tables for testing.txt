@@ -1,0 +1,50 @@
+-- Sample data for category table (Clothing)
+INSERT INTO category (category_id, category_name) VALUES
+(1,'Shirts'),
+(2,'Pants'),
+(3,'Dresses');
+
+-- Sample data for color table
+INSERT INTO color (color_id, color_name) VALUES
+(1,'Red'),
+(2,'Blue'),
+(3,'Green'),
+(4,'Black'),
+(5,'White');
+
+-- Sample data for customer table
+INSERT INTO customer (customer_id, customer_name, customer_contact, address, email_address) VALUES
+(1,'Alice Smith', '1234567890', '123 Main St', 'alice@example.com'),
+(2,'Bob Johnson', '9876543210', '456 Elm St', 'bob@example.com');
+
+-- Sample data for size table
+INSERT INTO size (size_id, size_name) VALUES
+(1,'Small'),
+(2,'Medium'),
+(3,'Large');
+
+-- Sample data for stock table (Clothing)
+-- For simplicity, let's assume each category has 5 items with random colors, sizes, quantities, and prices.
+INSERT INTO stock (stock_id,category_id, color_id, size_id, quantity, buying_price, selling_price, buying_date) VALUES
+-- Shirts
+(1, 1, 1, 1, 10, 15.00, 25.00, '2024-05-10'),
+(2, 1, 2, 2, 8, 18.00, 28.00, '2024-05-11'),
+-- Pants
+(3, 2, 1, 2, 10, 20.00, 30.00, '2024-05-10'),
+(4, 2, 2, 3, 8, 25.00, 35.00, '2024-05-11'),
+-- Dresses
+(5, 3, 1, 3, 10, 30.00, 40.00, '2024-05-10'),
+(6, 3, 2, 1, 8, 35.00, 45.00, '2024-05-11');
+
+-- Sample data for transaction table
+INSERT INTO transaction (transaction_id, customer_id, date, total_amount) VALUES
+(1, 1, '2024-05-15', 78.00),
+(2, 2, '2024-05-16', 95.00);
+
+-- Sample data for transaction_items table
+-- For simplicity, let's assume each transaction includes 2 items.
+INSERT INTO transaction_items (transaction_id, stock_id, quantity, amount) VALUES
+(1, 1, 2, 50),
+(1, 2, 1, 28),
+(2, 3, 2, 60),
+(2, 4, 1, 35);
