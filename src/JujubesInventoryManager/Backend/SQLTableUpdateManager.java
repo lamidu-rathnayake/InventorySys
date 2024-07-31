@@ -16,7 +16,15 @@ import java.util.List;
 public class SQLTableUpdateManager extends SQLManagerNew{
     //change stock details
     // addNewStock(int stock_id, String category, String size, String color, int quantity, double buying_price,double selling_price, String buying_date)
-    public static void changeStockDetails(int stock_id, int category, int size, int color, int quantity, double buying_price, double selling_price, String buying_date){
+    public static void changeStockDetails(
+        int stock_id, 
+        int category, 
+        int size, 
+        int color, 
+        int quantity, 
+        double buying_price, 
+        double selling_price, 
+        String buying_date){
 
         String query1 = "update stock set category_id = ? where stock_id = ?;";
         String query2 = "update stock set size_id = ? where stock_id = ?;";
@@ -133,18 +141,29 @@ public class SQLTableUpdateManager extends SQLManagerNew{
     }
 
     //change transaction details
-    public static void updateTransaction(String date, int transaction_id, int customer_id, String customer_name, String customer_address, String customer_tel_number,String customer_email ,List<Integer> stock_ids, List<Integer> quantities){
+    public static void updateTransaction(
+        String date, 
+        int transaction_id,
+        int customer_id, 
+        String customer_name, 
+        String customer_address, 
+        String customer_tel_number,
+        String customer_email,
+        List<Integer> stock_ids, 
+        List<Integer> quantities){
         
-        String queryTransactionItem = "insert into Transaction_Items(transaction_id,stock_id,quantity,amount) values (?,?,?,?)";
-        String queryCustomer = "insert ignore into customer(customer_id, customer_name, customer_contact, address) values (?,?,?,?)";
-        List<Double> amountOfSelectedStocks = new ArrayList<>();
-        double total_amount = 0;
+        String insertTransactionItem = "insert into Transaction_Items(transaction_id,stock_id,quantity,amount) values (?,?,?,?)";
+        String insertCustomer = "insert ignore into customer(customer_id, customer_name, customer_contact, address) values (?,?,?,?)";
+        List<Double> amountOfSelectedStocks = new ArrayList<>();//sended to transaction_item table
+        double total_amount = 0;//sended to transaction table
         
         // updating customer details
+        // update the customer details if has changes
+        // otherwise the insert as a new customer 
         if(customer_id != -1){
             changeCustomerDetails(customer_id, customer_name, customer_tel_number, customer_address, customer_email);
         }else {
-            insertData(queryCustomer,
+            insertData(insertCustomer,
                 new Object[] { getLastCustomerid() + 1, customer_name, customer_tel_number, customer_address });
         }
 
@@ -160,7 +179,8 @@ public class SQLTableUpdateManager extends SQLManagerNew{
             // cleaning the current existing stocks 
             deleteExistingStock(transaction_id);
 
-            // calculating total amount
+            // calculating total amount and the stock amount by iterating
+            // iterating each stock id from the stock_ids array 
             for (int stock_id : stock_ids) {
                 quantity = quantities.get(i);
                 selling_price = getSellingPrice(stock_id);
@@ -168,8 +188,9 @@ public class SQLTableUpdateManager extends SQLManagerNew{
                 amountOfSelectedStocks.add(amountForWorkingStock);
                 total_amount += amountForWorkingStock;
                 
+                //inserting the each stock transactions for the transaction id
                 insertData(
-                    queryTransactionItem, 
+                    insertTransactionItem, 
                     new Object[] { transaction_id, 
                     stock_id, 
                     quantities.get(i1),
@@ -178,7 +199,7 @@ public class SQLTableUpdateManager extends SQLManagerNew{
                 i++;
             }
 
-            // updating the new amount
+            // updating transaction table with the new amount
             changeTransactionDetails(transaction_id, customer_id, date, total_amount); 
             System.out.println("stocks are handled");
         }
