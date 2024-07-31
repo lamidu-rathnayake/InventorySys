@@ -14,6 +14,7 @@ import java.util.List;
  * @author User
  */
 public class SQLTableUpdateManager extends SQLManagerNew{
+    // main user case 1
     //change stock details
     // addNewStock(int stock_id, String category, String size, String color, int quantity, double buying_price,double selling_price, String buying_date)
     public static void changeStockDetails(
@@ -24,7 +25,8 @@ public class SQLTableUpdateManager extends SQLManagerNew{
         int quantity, 
         double buying_price, 
         double selling_price, 
-        String buying_date){
+        String buying_date
+        ){
 
         String query1 = "update stock set category_id = ? where stock_id = ?;";
         String query2 = "update stock set size_id = ? where stock_id = ?;";
@@ -65,7 +67,75 @@ public class SQLTableUpdateManager extends SQLManagerNew{
 
     }
 
+    
+    // main user case 2
+    //change transaction details
     //customer
+    public static void updateTransaction(
+        String date, 
+        int transaction_id,
+        int customer_id, 
+        String customer_name, 
+        String customer_address, 
+        String customer_tel_number,
+        String customer_email,
+        List<Integer> stock_ids, 
+        List<Integer> quantities
+        ){
+            
+        String insertTransactionItem = "insert into Transaction_Items(transaction_id,stock_id,quantity,amount) values (?,?,?,?)";
+        String insertCustomer = "insert ignore into customer(customer_id, customer_name, customer_contact, address) values (?,?,?,?)";
+        List<Double> amountOfSelectedStocks = new ArrayList<>();//sended to transaction_item table
+        double total_amount = 0;//sended to transaction table
+        
+        // updating customer details
+        // update the customer details if has changes
+        // otherwise the insert as a new customer 
+        if(customer_id != -1){
+            changeCustomerDetails(customer_id, customer_name, customer_tel_number, customer_address, customer_email);
+        }else {
+            insertData(insertCustomer,
+                new Object[] { getLastCustomerid() + 1, customer_name, customer_tel_number, customer_address });
+        }
+
+        // handling the stocks and amounts and updating
+        if(stock_ids!=null || quantities!=null){
+            int i = 0;
+            int i1 = 0;
+            int quantity = 0;
+            total_amount = 0.0;
+            double amountForWorkingStock = 0.0;
+            double selling_price = 0.0;
+            
+            // cleaning the current existing stocks 
+            deleteExistingStock(transaction_id);
+
+            // calculating total amount and the stock amount by iterating
+            // iterating each stock id from the stock_ids array 
+            for (int stock_id : stock_ids) {
+                quantity = quantities.get(i);
+                selling_price = getSellingPrice(stock_id);
+                amountForWorkingStock = selling_price * quantity;
+                amountOfSelectedStocks.add(amountForWorkingStock);
+                total_amount += amountForWorkingStock;
+                
+                //inserting the each stock transactions for the transaction id
+                insertData(
+                    insertTransactionItem, 
+                    new Object[] { transaction_id, 
+                    stock_id, 
+                    quantities.get(i1),
+                    selling_price * quantity}
+                );
+                i++;
+            }
+
+            // updating transaction table with the new amount
+            changeTransactionDetails(transaction_id, customer_id, date, total_amount); 
+            System.out.println("stocks are handled");
+        }
+    }
+    
     public static void changeCustomerDetails(int customer_id, String customer_name, String customer_contact, String address, String customer_email){
         int customer_status = 0;
         try {
@@ -139,71 +209,5 @@ public class SQLTableUpdateManager extends SQLManagerNew{
         String query = "DELETE FROM transaction_items WHERE transaction_id = ? ;";
         insertData(query, new Object[] {transaction_id});
     }
-
-    //change transaction details
-    public static void updateTransaction(
-        String date, 
-        int transaction_id,
-        int customer_id, 
-        String customer_name, 
-        String customer_address, 
-        String customer_tel_number,
-        String customer_email,
-        List<Integer> stock_ids, 
-        List<Integer> quantities){
-        
-        String insertTransactionItem = "insert into Transaction_Items(transaction_id,stock_id,quantity,amount) values (?,?,?,?)";
-        String insertCustomer = "insert ignore into customer(customer_id, customer_name, customer_contact, address) values (?,?,?,?)";
-        List<Double> amountOfSelectedStocks = new ArrayList<>();//sended to transaction_item table
-        double total_amount = 0;//sended to transaction table
-        
-        // updating customer details
-        // update the customer details if has changes
-        // otherwise the insert as a new customer 
-        if(customer_id != -1){
-            changeCustomerDetails(customer_id, customer_name, customer_tel_number, customer_address, customer_email);
-        }else {
-            insertData(insertCustomer,
-                new Object[] { getLastCustomerid() + 1, customer_name, customer_tel_number, customer_address });
-        }
-
-        // handling the stocks and amounts and updating
-        if(stock_ids!=null || quantities!=null){
-            int i = 0;
-            int i1 = 0;
-            int quantity = 0;
-            total_amount = 0.0;
-            double amountForWorkingStock = 0.0;
-            double selling_price = 0.0;
-
-            // cleaning the current existing stocks 
-            deleteExistingStock(transaction_id);
-
-            // calculating total amount and the stock amount by iterating
-            // iterating each stock id from the stock_ids array 
-            for (int stock_id : stock_ids) {
-                quantity = quantities.get(i);
-                selling_price = getSellingPrice(stock_id);
-                amountForWorkingStock = selling_price * quantity;
-                amountOfSelectedStocks.add(amountForWorkingStock);
-                total_amount += amountForWorkingStock;
-                
-                //inserting the each stock transactions for the transaction id
-                insertData(
-                    insertTransactionItem, 
-                    new Object[] { transaction_id, 
-                    stock_id, 
-                    quantities.get(i1),
-                    selling_price * quantity}
-                );
-                i++;
-            }
-
-            // updating transaction table with the new amount
-            changeTransactionDetails(transaction_id, customer_id, date, total_amount); 
-            System.out.println("stocks are handled");
-        }
-    }
-
 }
   
