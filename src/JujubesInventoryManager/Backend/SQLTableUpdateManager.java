@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package JujubesInventoryManager.Backend;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -136,6 +135,7 @@ public class SQLTableUpdateManager extends SQLManagerNew{
         }
     }
     
+    //customer
     public static void changeCustomerDetails(int customer_id, String customer_name, String customer_contact, String address, String customer_email){
         int customer_status = 0;
         try {
@@ -209,5 +209,10 @@ public class SQLTableUpdateManager extends SQLManagerNew{
         String query = "DELETE FROM transaction_items WHERE transaction_id = ? ;";
         insertData(query, new Object[] {transaction_id});
     }
+
+    // next tasks
+    // to fetch in transaction details for processing
+    // 1.gets stock records
+    // 2.gets transaction records
 }
   
