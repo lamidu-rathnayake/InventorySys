@@ -210,9 +210,101 @@ public class SQLTableUpdateManager extends SQLManagerNew{
         insertData(query, new Object[] {transaction_id});
     }
 
+    // 2024 08 01
     // next tasks
     // to fetch in transaction details for processing
     // 1.gets stock records
+    public static Object[] getStockInfo(int stock_id){
+        String query = "select * from stock where stock_id = ? ;";
+        try{
+            statement = getConnection().prepareStatement(query);
+            statement.setInt(1,stock_id);
+            ResultSet results = statement.executeQuery();
+            Object[] array = null;
+            while (results.next()) {
+                array = new Object[]{
+                    results.getInt("stock_id"),
+                    results.getInt("category_id"),
+                    results.getInt("color_id"),
+                    results.getInt("size_id"),
+                    results.getInt("quantity"),
+                    results.getDouble("buying_price"),
+                    results.getDouble("selling_price"),
+                    results.getString("buying_date")
+                };
+            }
+            return array;
+        }
+        catch (SQLException e) {
+            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     // 2.gets transaction records
+    public static List<Object[]> getTransactionInfo(int transaction){
+        String query = "select * from transaction where transaction_id = ? ;";
+        List <Object[]> arrays = new ArrayList<Object[]>();
+        Object[] array = null;
+        Object[] arrayCus = null;
+        Object[][] arrayTi = null;
+
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setInt(1,transaction);
+            ResultSet results = statement.executeQuery();
+            while (results.next()) {
+                array = new Object[]{
+                    results.getInt("transaction_id"),
+                    results.getInt("customer_id"),
+                    results.getString("date"),
+                    results.getDouble("total_amount")
+                };
+            }
+            arrays.add(array);//added array of transaction details to the array list
+
+            if((int)array[1] != 0){
+                String queryCus = "select * from customer where customer_id = ? ;";
+                statement = getConnection().prepareStatement(queryCus);
+                statement.setInt(1,(int)array[1]);
+                ResultSet resultsCus = statement.executeQuery();
+                while (resultsCus.next()) {
+                    arrayCus = new Object[]{
+                        resultsCus.getInt("customer_id"),
+                        resultsCus.getString("customer_name"),
+                        resultsCus.getInt("customer_contact"),
+                        resultsCus.getString("address"),
+                        resultsCus.getString("email_address")
+                    };
+                }
+            }
+            arrays.add(arrayCus);//added array of customer details to the array list
+
+            if((int)array[0] != 0){
+                String querytItem = "select * from transaction_items where transaction_id = ? ;";
+                statement = getConnection().prepareStatement(querytItem);
+                statement.setInt(1,(int)array[0]);
+                ResultSet resultsti = statement.executeQuery();
+                while (resultsti.next()) {
+                    arrayTi = new Object[][]{
+                        {resultsti.getInt("transaction_id"),
+                        resultsti.getInt("stock_id"),
+                        resultsti.getInt("quantity"),
+                        resultsti.getDouble("amount")}
+                    };
+                }
+            }
+            arrays.add(arrayTi);//added array of transaction item or stock and quantites for each transaction
+            
+            return arrays;
+
+        } catch (SQLException e) {
+            System.out.println(e.getStackTrace());
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
 }
   
