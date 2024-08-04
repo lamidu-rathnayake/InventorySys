@@ -13,6 +13,34 @@ import java.util.List;
  * @author User
  */
 public class SQLTableUpdateManager extends SQLManagerNew{
+
+    public static ResultSet queryData(String query, Object[] array) {
+        try {
+            statement = getConnection().prepareStatement(query);
+            int i = 1;// used to indecate the current column "starts from the 1st column"
+
+            for (Object object : array) {
+                if (object instanceof String)
+                    statement.setString(i, (String) object);
+                else if (object instanceof Double)
+                    statement.setDouble(i, (Double) object);
+                else if (object instanceof Integer)
+                    statement.setInt(i, (Integer) object);
+                else
+                    System.out.println("Column type can not recognize!!!");
+                i++;
+            } // setting up the statement by iterating the array
+
+            ResultSet results = statement.executeQuery();
+            connection.close();
+            return results;
+        } catch (SQLException exc) {
+            System.out.println(exc.getMessage());
+            exc.printStackTrace();
+        }
+        return null;
+    }
+    
     // main user case 1
     //change stock details
     // addNewStock(int stock_id, String category, String size, String color, int quantity, double buying_price,double selling_price, String buying_date)

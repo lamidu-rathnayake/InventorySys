@@ -10,19 +10,6 @@ import java.util.List;
  */
 public class SQLStatisticsManagerNew  extends SQLManagerNew{
 
-    private static ResultSet getResult(String query, String sDate, String eDate){
-        try{
-            statement = getConnection().prepareStatement(query);
-            statement.setString(1,sDate);
-            statement.setString(2,eDate);
-            ResultSet results = statement.executeQuery();
-            return results;
-        }catch(SQLException exc){
-            System.out.println(exc.getMessage());
-            return null;
-        }
-    }
-
     //gets total statistics
     public static List<Object[]> getTotalSummery(String sDate, String eDate)throws SQLException{
         List <Object[]> rows = new ArrayList<>();

@@ -8,7 +8,7 @@ public class Test {
     public static void main(String[] args) {
         List <Object[]> arrays = SQLTableUpdateManager.getTransactionInfo(1);
         int i = 1;
-        for(Object[] array : arrays){
+        for(Object[][] array : arrays.get(2)){
             if(i==3) {
                 for (Object[][] array : array){
 
@@ -21,7 +21,5 @@ public class Test {
             System.out.println("\n\n");
             i++;
         }
-
-        
     }
 }

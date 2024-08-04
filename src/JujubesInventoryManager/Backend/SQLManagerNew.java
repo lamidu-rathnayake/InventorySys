@@ -26,9 +26,26 @@ public class SQLManagerNew {
         }
         return connection;
     }
-
+    // closes the connection
+    protected static void closeConnection() throws SQLException {
+        connection.close();
+    }
+    // fetches the data from tables
+    protected static ResultSet getResult(String query, String sDate, String eDate){
+        try{
+            statement = getConnection().prepareStatement(query);
+            statement.setString(1,sDate);
+            statement.setString(2,eDate);
+            ResultSet results = statement.executeQuery();
+            closeConnection();//inherited.m
+            return results;
+        }catch(SQLException exc){
+            System.out.println(exc.getMessage());
+            return null;
+        }
+    }
     // inserts data into table
-    public static int insertData(String query, Object[] array) {
+    protected static int insertData(String query, Object[] array) {
         int flag = 0;
         try {
             statement = getConnection().prepareStatement(query);
@@ -47,7 +64,7 @@ public class SQLManagerNew {
             } // setting up the statement by iterating the array
 
             flag = statement.executeUpdate();
-            connection.close();
+            closeConnection();
         } catch (SQLException exc) {
             System.out.println(exc.getMessage());
             exc.printStackTrace();
@@ -55,6 +72,7 @@ public class SQLManagerNew {
         return flag;
     }
 
+    
     // SUB FUNCTIONS
     // gets all the stock in the inventory
     // this function is used by the transactions window to show up the current
@@ -136,6 +154,7 @@ public class SQLManagerNew {
             return -1;
         }
     }
+
 
     // this functions help to keep track of the highest id in below table
     // stock id
@@ -258,6 +277,8 @@ public class SQLManagerNew {
         }
     }
 
+
+
     // gets the selling price for the sid;
     protected static double getSellingPrice(int sid) {
         String query = "select selling_price from stock where stock_id = ?";
@@ -276,6 +297,7 @@ public class SQLManagerNew {
             return 0.0;
         }
     }
+
 
     // gets the customer id
     protected static int getCustomerId(String customer_name, String customer_contact, String customer_address) {
@@ -298,6 +320,7 @@ public class SQLManagerNew {
         return customer_id;
     }
 
+
     // gets cid for the category name
     public static int getCid(String cname) {
         String query = "SELECT category_id FROM category where category_name = ?";
@@ -315,6 +338,25 @@ public class SQLManagerNew {
             System.out.println(exc.getMessage());
             exc.printStackTrace();
             return category_id;
+        }
+    }
+
+    // 20240804 
+    // gets cateogry name for the sid
+    public static String getCategoryName(int sid){
+        String category = "category doesn't exist.";
+        String query = "select category_name from category where category_id = ?";
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setInt(0, sid);
+            ResultSet results = statement.executeQuery();
+            while (results.next()) category = results.getString("category_name");
+            closeConnection();
+            return category;
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return category;
         }
     }
 
@@ -358,6 +400,7 @@ public class SQLManagerNew {
 
     }
 
+
     // gets the color in the table
     public static List<String> getColors() {
         String query = "SELECT color_name FROM color";
@@ -385,8 +428,7 @@ public class SQLManagerNew {
             statement = getConnection().prepareStatement(query);
             statement.setString(1, color);
             ResultSet results = statement.executeQuery();
-            while (results.next())
-                color_id = results.getInt("id");
+            while (results.next()) color_id = results.getInt("id");
             return color_id;
         } catch (SQLException exc) {
             System.out.println(exc.getMessage());
@@ -412,6 +454,7 @@ public class SQLManagerNew {
             System.out.println(exc.getMessage());
         }
     }
+
 
     // gets size_id
     public static int getSizeId(String size) {
@@ -467,6 +510,7 @@ public class SQLManagerNew {
             System.out.println(exc.getMessage());
         }
     }
+    
     
     //getting the stock info for the stock id
     public static Object[] getStockInfo(int stockId){
