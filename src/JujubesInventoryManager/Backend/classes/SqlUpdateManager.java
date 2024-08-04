@@ -21,7 +21,7 @@ public class SqlUpdateManager extends SQLManagerNew {
     private Transaction transaction;
     private TransactionItem transactionItem;
 
-    SqlUpdateManager(){
+    public SqlUpdateManager(){
         this.customer = null;
         this.stock = null;
         this.transaction = null;
@@ -52,15 +52,23 @@ public class SqlUpdateManager extends SQLManagerNew {
         for(Object item : SQLManagerNew.getStockInfo(sid)) stockInfo.add(item);
         
         //create stock object with that informations
+        System.out.println((int) stockInfo.get(0)+" "+
+        SQLManagerNew.getCategoryName((int)stockInfo.get(1))+" "+ 
+        SQLManagerNew.getColorName((int)stockInfo.get(2))+" "+ 
+        SQLManagerNew.getSizeName((int)stockInfo.get(3))+" "+
+        (int) stockInfo.get(4)+" "+ 
+        (double) stockInfo.get(5)+" "+
+        (double) stockInfo.get(6));
+
         createStock(
             (int) stockInfo.get(0), 
             SQLManagerNew.getCategoryName((int)stockInfo.get(1)), 
-            SQLManagerNew.getColor((int)stockInfo.get(2)), 
-            SQLManagerNew.getSize((int)stockInfo.get(3)), 
+            SQLManagerNew.getColorName((int)stockInfo.get(2)), 
+            SQLManagerNew.getSizeName((int)stockInfo.get(3)), 
             (int) stockInfo.get(4), 
             (double) stockInfo.get(5), 
             (double) stockInfo.get(6)
-        );
+        ); 
     }
 
 

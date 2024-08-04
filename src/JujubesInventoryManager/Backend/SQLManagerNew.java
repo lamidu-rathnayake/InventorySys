@@ -72,6 +72,7 @@ public class SQLManagerNew {
         return flag;
     }
 
+
     
     // SUB FUNCTIONS
     // gets all the stock in the inventory
@@ -299,6 +300,7 @@ public class SQLManagerNew {
     }
 
 
+
     // gets the customer id
     protected static int getCustomerId(String customer_name, String customer_contact, String customer_address) {
         int customer_id = -1;
@@ -320,7 +322,6 @@ public class SQLManagerNew {
         return customer_id;
     }
 
-
     // gets cid for the category name
     public static int getCid(String cname) {
         String query = "SELECT category_id FROM category where category_name = ?";
@@ -341,6 +342,41 @@ public class SQLManagerNew {
         }
     }
 
+    // gets color_id
+    public static int getColorId(String color) {
+        int color_id = -1;
+        try {
+            String query = "select color_id as id from color where color_name = ?";
+            statement = getConnection().prepareStatement(query);
+            statement.setString(1, color);
+            ResultSet results = statement.executeQuery();
+            while (results.next()) color_id = results.getInt("id");
+            return color_id;
+        } catch (SQLException exc) {
+            System.out.println(exc.getMessage());
+        }
+        return color_id;
+    }
+
+    // gets size_id
+    public static int getSizeId(String size) {
+        int size_id = -1;
+        try {
+            String query = "select size_id from size where size_name = ?";
+            statement = getConnection().prepareStatement(query);
+            statement.setString(1, size);
+            ResultSet result = statement.executeQuery();
+            while (result.next())
+                size_id = result.getInt("size_id");
+            return size_id;
+        } catch (SQLException exc) {
+            System.out.println(exc.getMessage());
+        }
+        return size_id;
+    }
+
+
+
     // 20240804 
     // gets cateogry name for the sid
     public static String getCategoryName(int sid){
@@ -348,7 +384,7 @@ public class SQLManagerNew {
         String query = "select category_name from category where category_id = ?";
         try {
             statement = getConnection().prepareStatement(query);
-            statement.setInt(0, sid);
+            statement.setInt(1, sid);
             ResultSet results = statement.executeQuery();
             while (results.next()) category = results.getString("category_name");
             closeConnection();
@@ -359,6 +395,46 @@ public class SQLManagerNew {
             return category;
         }
     }
+
+    // gets color name
+    public static String getColorName(int colorId){
+        String color = "color doesn't exist.";
+        String query = "select color_name from color where color_id = ?";
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setInt(1, colorId);
+            ResultSet results = statement.executeQuery();
+            while (results.next()) color = results.getString("color_name");
+            closeConnection();
+            return color;
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return color;
+        }
+
+    }
+
+    // gets size name
+    public static String getSizeName(int sizeId){
+        String size = "size doesn't exist.";
+        String query = "select size_name from size where size_id = ?";
+        try {
+            statement = getConnection().prepareStatement(query);
+            statement.setInt(1, sizeId);
+            ResultSet results = statement.executeQuery();
+            while (results.next()) size = results.getString("size_name");
+            closeConnection();
+            return size;
+            
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return size;
+        }
+
+    }
+
+
 
     // gets category name from the category table (used for dropdown)
     public static List<String> getCategoryNames() {
@@ -379,28 +455,6 @@ public class SQLManagerNew {
         return categories;
     }
 
-    // adding new category
-    public static void addNewCategory(String categoryName) {
-        int rowCount = 0;
-        String checkQuery = "SELECT COUNT(*) AS count FROM category WHERE category_name = ?";
-        try {
-            PreparedStatement checkStatement = getConnection().prepareStatement(checkQuery);
-            checkStatement.setString(1, categoryName);
-            ResultSet result = checkStatement.executeQuery();
-            while (result.next())
-                rowCount = result.getInt("count");
-            if (rowCount == 0) {
-                String query = "insert into category(category_id, category_name) values (?,?)";
-                int category_id = getLastCid()+1;
-                insertData(query, new Object[] { category_id ,categoryName });
-            }
-        } catch (Exception exc) {
-            System.out.println(exc.getMessage());
-        }
-
-    }
-
-
     // gets the color in the table
     public static List<String> getColors() {
         String query = "SELECT color_name FROM color";
@@ -418,59 +472,6 @@ public class SQLManagerNew {
             System.out.println(exc.getMessage());
             return null;
         }
-    }
-
-    // gets color_id
-    public static int getColorId(String color) {
-        int color_id = -1;
-        try {
-            String query = "select color_id as id from color where color_name = ?";
-            statement = getConnection().prepareStatement(query);
-            statement.setString(1, color);
-            ResultSet results = statement.executeQuery();
-            while (results.next()) color_id = results.getInt("id");
-            return color_id;
-        } catch (SQLException exc) {
-            System.out.println(exc.getMessage());
-        }
-        return color_id;
-    }
-
-    // adds color
-    public static void addColor(String color) {
-        try {
-            int rowCount = 0;
-            String checkQuery = "SELECT COUNT(*) AS count FROM color WHERE color_name = ?";
-            PreparedStatement checkStatement = getConnection().prepareStatement(checkQuery);
-            checkStatement.setString(1, color);
-            ResultSet checkResult = checkStatement.executeQuery();
-            while (checkResult.next())
-                rowCount = checkResult.getInt("count");
-            if (rowCount == 0) {
-                String query = "insert into color(color_id, color_name) values (?,?)";
-                insertData(query, new Object[] {getLastColorid()+1, color});
-            }
-        } catch (SQLException exc) {
-            System.out.println(exc.getMessage());
-        }
-    }
-
-
-    // gets size_id
-    public static int getSizeId(String size) {
-        int size_id = -1;
-        try {
-            String query = "select size_id from size where size_name = ?";
-            statement = getConnection().prepareStatement(query);
-            statement.setString(1, size);
-            ResultSet result = statement.executeQuery();
-            while (result.next())
-                size_id = result.getInt("size_id");
-            return size_id;
-        } catch (SQLException exc) {
-            System.out.println(exc.getMessage());
-        }
-        return size_id;
     }
 
     // get sizes from the size table
@@ -491,27 +492,6 @@ public class SQLManagerNew {
         return sizes;
     }
 
-    // adding new Size
-    public static void addSize(String size) {
-        int rowCount = 0;
-        String checkQuery = "SELECT COUNT(*) AS count FROM size WHERE size_name = ?";
-        try {
-            PreparedStatement checkStatement = getConnection().prepareStatement(checkQuery);
-            checkStatement.setString(1, size);
-            ResultSet result = checkStatement.executeQuery();
-            while (result.next())
-                rowCount = result.getInt("count");
-            if (rowCount == 0) {
-                String query = "insert into size(size_id, size_name) values (?,?)";
-                int size_id = getLastSizeid()+1;
-                insertData(query, new Object[] { size_id, size});
-            }
-        } catch (SQLException exc) {
-            System.out.println(exc.getMessage());
-        }
-    }
-    
-    
     //getting the stock info for the stock id
     public static Object[] getStockInfo(int stockId){
         String query = "select * from stock where stock_id = ?";
@@ -539,8 +519,71 @@ public class SQLManagerNew {
             return null;
         }
     }
-    
 
+
+
+    // adding new category
+    public static void addNewCategory(String categoryName) {
+        int rowCount = 0;
+        String checkQuery = "SELECT COUNT(*) AS count FROM category WHERE category_name = ?";
+        try {
+            PreparedStatement checkStatement = getConnection().prepareStatement(checkQuery);
+            checkStatement.setString(1, categoryName);
+            ResultSet result = checkStatement.executeQuery();
+            while (result.next())
+                rowCount = result.getInt("count");
+            if (rowCount == 0) {
+                String query = "insert into category(category_id, category_name) values (?,?)";
+                int category_id = getLastCid()+1;
+                insertData(query, new Object[] { category_id ,categoryName });
+            }
+        } catch (Exception exc) {
+            System.out.println(exc.getMessage());
+        }
+
+    }
+
+    // adds color
+    public static void addColor(String color) {
+        try {
+            int rowCount = 0;
+            String checkQuery = "SELECT COUNT(*) AS count FROM color WHERE color_name = ?";
+            PreparedStatement checkStatement = getConnection().prepareStatement(checkQuery);
+            checkStatement.setString(1, color);
+            ResultSet checkResult = checkStatement.executeQuery();
+            while (checkResult.next())
+                rowCount = checkResult.getInt("count");
+            if (rowCount == 0) {
+                String query = "insert into color(color_id, color_name) values (?,?)";
+                insertData(query, new Object[] {getLastColorid()+1, color});
+            }
+        } catch (SQLException exc) {
+            System.out.println(exc.getMessage());
+        }
+    }
+
+    // adding new Size
+    public static void addSize(String size) {
+        int rowCount = 0;
+        String checkQuery = "SELECT COUNT(*) AS count FROM size WHERE size_name = ?";
+        try {
+            PreparedStatement checkStatement = getConnection().prepareStatement(checkQuery);
+            checkStatement.setString(1, size);
+            ResultSet result = checkStatement.executeQuery();
+            while (result.next())
+                rowCount = result.getInt("count");
+            if (rowCount == 0) {
+                String query = "insert into size(size_id, size_name) values (?,?)";
+                int size_id = getLastSizeid()+1;
+                insertData(query, new Object[] { size_id, size});
+            }
+        } catch (SQLException exc) {
+            System.out.println(exc.getMessage());
+        }
+    }
+    
+    
+    
     // SYSTEM PROCEDURES
     // adding new stock
     public static void addNewStock(int stock_id, String category, String size, String color, int quantity, double buying_price,
