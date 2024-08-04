@@ -497,12 +497,12 @@ public class SQLManagerNew {
         String query = "select * from stock where stock_id = ?";
         Object[] array;
         try {
-            PreparedStatement satatement = getConnection().prepareStatement(query);
+            statement = getConnection().prepareStatement(query);
             statement.setInt(1,stockId);
             ResultSet results = statement.executeQuery();
             while(results.next()) {
                 array = new Object[]{results.getInt("stock_id"),
-                    results.getInt("catetory_id"),
+                    results.getInt("category_id"),
                     results.getInt("color_id"),
                     results.getInt("size_id"),
                     results.getInt("quantity"),

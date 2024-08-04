@@ -9,7 +9,8 @@ import JujubesInventoryManager.Backend.classes.SqlUpdateManager;
 
 public class test extends SQLTableUpdateManager{
     public static void main(String[] args) {
-        SQLManagerNew.getStockInfo(sid);
+        SqlUpdateManager updater = new SqlUpdateManager();
+        updater.intializeStock(1);
     }
 }
  
