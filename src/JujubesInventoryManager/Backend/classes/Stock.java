@@ -1,6 +1,7 @@
 package JujubesInventoryManager.Backend.classes;
 
 public class Stock {
+    private int previousStock_id;
     private int stock_id;
     private String category;
     private String color;
@@ -11,6 +12,7 @@ public class Stock {
 
     Stock(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price){
         this.stock_id = sid;
+        this.previousStock_id = sid;
         this.category = category;
         this.color = color;
         this.size = size;
@@ -19,11 +21,15 @@ public class Stock {
         this.selling_price = selling_price;
     }
 
-    public int getStockID(){
+    public int getStockId(){
         return this.stock_id;
     }
-    public void setStockID(int sid){
+    public void setStockId(int sid){
         this.stock_id = sid;
+    }
+
+    public int getPreviousStockId(){
+        return this.previousStock_id;
     }
 
     public String getCategory(){
@@ -33,7 +39,7 @@ public class Stock {
         this.category = category;
     }
 
-    public String color(){
+    public String getColor(){
         return this.color;
     }
     public void setColor(String color){

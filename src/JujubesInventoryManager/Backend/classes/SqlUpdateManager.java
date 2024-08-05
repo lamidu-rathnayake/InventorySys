@@ -43,10 +43,9 @@ public class SqlUpdateManager extends SQLManagerNew {
     }
 
 
-    //scenario 1
+    //scenario 1 (HANDLING STOCKS)
     //getting stock for the given stock id or for the last record.
     public void intializeStock(int sid){
-        
         List<Object> stockInfo = new ArrayList<>();
         //getting the stock infomations from the stock table
         for(Object item : SQLManagerNew.getStockInfo(sid)) stockInfo.add(item);
@@ -62,8 +61,52 @@ public class SqlUpdateManager extends SQLManagerNew {
             (double) stockInfo.get(6)
         ); 
     }
+ 
+    //updating the stock infomation 
+    public void changeStockInfo(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price){
+        if (sid != -1) stock.setStockId(sid);
+        if (!category.isEmpty()) stock.setCategory(category);
+        if (!color.isEmpty()) stock.setColor(color);
+        if (!size.isEmpty()) stock.setSize(size);
+        if (quantity != -1) stock.setQuantity(quantity);
+        if (buying_price != -1) stock.setBuying_Price(buying_price);
+        if (selling_price != -1) stock.setSelling_price(selling_price);
+        System.out.println("stock info have been changed..");
+    }
 
+    //returning stock obj
+    public Stock getStockObj(){
+        return stock;
+    }
 
+    //pushing the updated stock infomation into the databse (stock table)
+    public void updateStockTable(int previousStock_id){
+        String updateQuery = "update stock"+ 
+            "set stock_id = ? ,"+ 
+            "category_id = ? ,"+ 
+            "color_id = ? ,"+ 
+            "size_id = ? ,"+ 
+            "quantity = ? ,"+ 
+            "buying_price = ? ,"+
+            "selling_price = ?"+
+            "where stock_id = " + previousStock_id + ";";
 
-    
+        //checking the existency and add
+        if(SQLManagerNew.getCid(stock.getCategory())==-1)SQLManagerNew.addNewCategory(stock.getCategory());
+        if(SQLManagerNew.getColorId(stock.getColor())==-1)SQLManagerNew.addColor(stock.getColor()); 
+        if(SQLManagerNew.getSizeId(stock.getSize())==-1)SQLManagerNew.addSize(stock.getSize());
+
+        SQLManagerNew.insertData(updateQuery, new Object[]{
+            stock.getStockId(),
+            SQLManagerNew.getCid(stock.getCategory()),
+            SQLManagerNew.getColorId(stock.getColor()),
+            SQLManagerNew.getSizeId(stock.getSize()),
+            stock.getQuantity(),
+            stock.getBuying_price(),
+            stock.getSelling_price()
+        });
+    }
+
+    //scenario 2 (HANDLING TRANSACTION)
+        
 }
