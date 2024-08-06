@@ -29,8 +29,8 @@ public class SqlUpdateManager extends SQLManagerNew {
     }
 
     //creating essential objects
-    public void createStock(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price){
-        stock = new Stock(sid, category, color, size, quantity, buying_price, selling_price);
+    public void createStock(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price, String buying_date){
+        stock = new Stock(sid, category, color, size, quantity, buying_price, selling_price, buying_date);
     }
     public void createCustomer(int cid, String name, int contact, String address, String email){
         customer = new Customer(cid, name, contact, address, email);
@@ -58,12 +58,13 @@ public class SqlUpdateManager extends SQLManagerNew {
             SQLManagerNew.getSizeName((int)stockInfo.get(3)), 
             (int) stockInfo.get(4), 
             (double) stockInfo.get(5), 
-            (double) stockInfo.get(6)
+            (double) stockInfo.get(6),
+            String.valueOf(stockInfo.get(7)) 
         ); 
     }
  
     //updating the stock infomation 
-    public void changeStockInfo(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price){
+    public void changeStockInfo(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price, String buying_date){
         if (sid != -1) stock.setStockId(sid);
         if (!category.isEmpty()) stock.setCategory(category);
         if (!color.isEmpty()) stock.setColor(color);
@@ -71,6 +72,7 @@ public class SqlUpdateManager extends SQLManagerNew {
         if (quantity != -1) stock.setQuantity(quantity);
         if (buying_price != -1) stock.setBuying_Price(buying_price);
         if (selling_price != -1) stock.setSelling_price(selling_price);
+        if (!buying_date.isEmpty()) stock.setBuying_date(buying_date);
         System.out.println("stock info have been changed..");
     }
 
@@ -81,14 +83,15 @@ public class SqlUpdateManager extends SQLManagerNew {
 
     //pushing the updated stock infomation into the databse (stock table)
     public void updateStockTable(int previousStock_id){
-        String updateQuery = "update stock"+ 
-            "set stock_id = ? ,"+ 
-            "category_id = ? ,"+ 
-            "color_id = ? ,"+ 
-            "size_id = ? ,"+ 
-            "quantity = ? ,"+ 
-            "buying_price = ? ,"+
-            "selling_price = ?"+
+        String updateQuery = "update stock" + 
+            "set stock_id = ? ," + 
+            "category_id = ? ," + 
+            "color_id = ? ," + 
+            "size_id = ? ," + 
+            "quantity = ? ," + 
+            "buying_price = ? ," +
+            "selling_price = ?" +
+            "buying_date = ?" +
             "where stock_id = " + previousStock_id + ";";
 
         //checking the existency and add
@@ -103,7 +106,8 @@ public class SqlUpdateManager extends SQLManagerNew {
             SQLManagerNew.getSizeId(stock.getSize()),
             stock.getQuantity(),
             stock.getBuying_price(),
-            stock.getSelling_price()
+            stock.getSelling_price(),
+            stock.getBuying_date()
         });
     }
 

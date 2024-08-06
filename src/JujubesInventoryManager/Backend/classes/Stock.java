@@ -9,8 +9,9 @@ public class Stock {
     private int quantity;
     private double buying_price;
     private double selling_price;
+    private String buying_date;
 
-    Stock(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price){
+    Stock(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price, String buying_date){
         this.stock_id = sid;
         this.previousStock_id = sid;
         this.category = category;
@@ -19,6 +20,7 @@ public class Stock {
         this.quantity = quantity;
         this.buying_price = buying_price;
         this.selling_price = selling_price;
+        this.buying_date = buying_date;
     }
 
     public int getStockId(){
@@ -72,6 +74,13 @@ public class Stock {
     }
     public void setSelling_price(double selling_price){
         this.selling_price = selling_price;
+    }
+
+    public String getBuying_date(){
+        return this.buying_date;
+    }
+    public void setBuying_date(String buying_date){
+        this.buying_date = buying_date;
     }
 
     
