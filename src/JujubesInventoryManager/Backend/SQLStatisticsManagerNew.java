@@ -26,7 +26,8 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
                         "INNER JOIN \n" + //
                         "    transaction t ON ti.transaction_id = t.transaction_id\n"+
                         "where t.date between ? and ?;";
-        results = getResult(query,sDate,eDate);
+        results = SQLManagerNew.getResult(query,sDate,eDate);
+        System.out.println("pass the line");
         while(results.next()) rows.add(new Object[]{
             results.getDouble("total_amount"), 
             results.getInt("total_sold_items"), 
@@ -59,7 +60,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
                         "GROUP BY \r\n" + //
                         "    c.category_id, c.category_name;\r\n" + //
                         "";
-        results = getResult(query,sDate,eDate);
+        results = SQLManagerNew.getResult(query,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("category_id"),
             results.getString("category_name"),
@@ -92,7 +93,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
                         "    c.category_id, c.category_name, sz.size_name\n" + //
                         "order by category_id\n" + //
                         "";
-        results = getResult(query,sDate,eDate);
+        results = SQLManagerNew.getResult(query,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("category_id"),
             results.getString("category_name"),
@@ -128,7 +129,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "transaction.date BETWEEN ? AND ? "+
     "GROUP BY "+
         "stock.stock_id, category.category_id, category.category_name, size.size_name, color.color_name;";
-        results = getResult(query,sDate,eDate);
+        results = SQLManagerNew.getResult(query,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("Stock_id"),
             results.getInt("Category_id"),
@@ -152,7 +153,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "LEFT JOIN transaction t ON ti.transaction_id = t.transaction_id " +
         "WHERE t.date BETWEEN ? AND ? " +
         "GROUP BY c.category_id, c.category_name;";
-        results = getResult(query2,sDate,eDate);
+        results = SQLManagerNew.getResult(query2,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("Category id"),
             results.getString("Category name"),
@@ -172,7 +173,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "LEFT JOIN transaction t ON ti.transaction_id = t.transaction_id " +
         "WHERE t.date BETWEEN ? AND ? " +
         "GROUP BY c.category_id, c.category_name, sz.size_name;";
-        results = getResult(query2,sDate,eDate);
+        results = SQLManagerNew.getResult(query2,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("Category id"),
             results.getString("Category name"),
@@ -195,7 +196,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "LEFT JOIN transaction t ON ti.transaction_id = t.transaction_id " +
         "WHERE t.date BETWEEN ? AND ? " +
         "GROUP BY s.stock_id, c.category_id, c.category_name, sz.size_name, clr.color_name;";
-        results = getResult(query2,sDate,eDate);
+        results = SQLManagerNew.getResult(query2,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("stock id"),
             results.getInt("category id"),
@@ -220,7 +221,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "LEFT JOIN transaction t ON ti.transaction_id = t.transaction_id " +
         "WHERE t.date BETWEEN ? AND ? " +
         "GROUP BY c.category_id, c.category_name;";
-        results = getResult(query2,sDate,eDate);
+        results = SQLManagerNew.getResult(query2,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("Category id"),
             results.getString("Category name"),
@@ -245,7 +246,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "LEFT JOIN transaction t ON ti.transaction_id = t.transaction_id " +
         "WHERE t.date BETWEEN ? AND ? " +
         "GROUP BY c.category_id, c.category_name, sz.size_name;";
-        results = getResult(query2,sDate,eDate);
+        results = SQLManagerNew.getResult(query2,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("Category id"),
             results.getString("Category name"),
@@ -274,7 +275,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "LEFT JOIN transaction t ON ti.transaction_id = t.transaction_id " +
         "WHERE t.date BETWEEN ? AND ? " +
         "GROUP BY c.category_id, c.category_name, sz.size_name, clr.color_name;";
-        results = getResult(query2,sDate,eDate);
+        results = SQLManagerNew.getResult(query2,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("Category id"),
             results.getString("Category name"),
@@ -307,7 +308,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "LEFT JOIN transaction t ON ti.transaction_id = t.transaction_id " +
         "WHERE t.date BETWEEN ? AND ? " +
         "GROUP BY s.stock_id, c.category_id, c.category_name, sz.size_name, clr.color_name;";
-        results = getResult(query2,sDate,eDate);
+        results = SQLManagerNew.getResult(query2,sDate,eDate);
         while(results.next()){
             rows.add(new Object[]{
                 results.getInt("Stock id"),
@@ -344,7 +345,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "LEFT JOIN customer c ON t.customer_id = c.customer_id " +
         "WHERE t.date BETWEEN ? AND ?;";
                 
-        results = getResult(query,sDate,eDate);
+        results = SQLManagerNew.getResult(query,sDate,eDate);
         while(results.next())rows.add(new Object[]{
             results.getInt("transaction_id"), 
             results.getString("date"), 
@@ -385,7 +386,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
         "GROUP BY s.stock_id, c.category_id, c.category_name, sz.size_name, clr.color_name "+
         "order by s.stock_id;";
         
-        results = getResult(query, sDate, eDate);
+        results = SQLManagerNew.getResult(query, sDate, eDate);
         while (results.next()) {
             rows.add(new Object[]{
                     results.getInt("Stock id"),

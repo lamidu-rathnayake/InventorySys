@@ -32,17 +32,16 @@ public class SQLManagerNew {
     }
     // fetches the data from tables
     protected static ResultSet getResult(String query, String sDate, String eDate){
-        try{
-            statement = getConnection().prepareStatement(query);
+        ResultSet results;
+        try(PreparedStatement statement = getConnection().prepareStatement(query)){
             statement.setString(1,sDate);
             statement.setString(2,eDate);
-            ResultSet results = statement.executeQuery();
-            closeConnection();//inherited.m
-            return results;
+            results = statement.executeQuery();          
         }catch(SQLException exc){
             System.out.println(exc.getMessage());
             return null;
         }
+        return results;
     }
     // inserts data into table
     protected static int insertData(String query, Object[] array) {

@@ -535,7 +535,7 @@ public class AnalyticsViewer extends javax.swing.JFrame {
                         //adding "Rs" for relavent columns in the row
                         for(int index : rsIndexes){
                             row[index] = "Rs." + row[index]; 
-                        }
+                        } 
                     }
                     model.addRow(row);
                     jProgressBar1.setValue(progressCount);
