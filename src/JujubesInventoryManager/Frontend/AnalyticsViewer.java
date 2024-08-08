@@ -190,6 +190,11 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         jSeparator1.setForeground(new java.awt.Color(118, 171, 174));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Total summery", "Overall Amount", "Size Amount", "Color Amount", "Overall Quantity", "Size Quantity", "Color Quantity", "Overall Profit", "SIze Profit", "Color Profit", "Stock Profit", "sold and available (Stock wise)" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -284,14 +289,14 @@ public class AnalyticsViewer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        Boolean flag = jCheckBox1.isSelected();
-        jTextField1.setEnabled(!flag);
-        jTextField2.setEnabled(!flag);
-        jTextField3.setEnabled(!flag);
-        jTextField4.setEnabled(!flag);
-        jTextField5.setEnabled(!flag);
-        jTextField6.setEnabled(!flag);
-        jCheckBox2.setSelected(!flag);
+        Boolean isPressed = jCheckBox1.isSelected();
+        jTextField1.setEnabled(!isPressed);
+        jTextField2.setEnabled(!isPressed);
+        jTextField3.setEnabled(!isPressed);
+        jTextField4.setEnabled(!isPressed);
+        jTextField5.setEnabled(!isPressed);
+        jTextField6.setEnabled(!isPressed);
+        jCheckBox2.setSelected(!isPressed);
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
@@ -306,47 +311,7 @@ public class AnalyticsViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        switch (jComboBox1.getSelectedIndex()){
-            case 0:
-                getUserInput(1);
-                break;
-            case 1:
-                getUserInput(2);
-                break;
-            case 2:
-                getUserInput(3);
-                break;
-            case 3:
-                getUserInput(4);
-                break;
-            case 4:
-                getUserInput(5);
-                break;
-            case 5:
-                getUserInput(6);
-                break;
-            case 6:
-                getUserInput(7);
-                break;
-            case 7:
-                getUserInput(8);
-                break;
-            case 8:
-                getUserInput(9);
-                break;
-            case 9:
-                getUserInput(10);
-                break;
-            case 10:
-                getUserInput(11);
-                break;
-            case 11:
-                getUserInput(12);
-                break;
-            default:
-                break;
-        }
-        
+            getUserInput(jComboBox1.getSelectedIndex());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -370,6 +335,37 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         jTextField6.setEnabled(!flag);
         jCheckBox2.setSelected(!flag);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        if(jComboBox1.getSelectedIndex()==11){
+            jLabel2.setEnabled(false);
+            jLabel3.setEnabled(false);
+            jTextField1.setEnabled(false);
+            jTextField2.setEnabled(false);
+            jTextField3.setEnabled(false);
+            jTextField4.setEnabled(false);
+            jTextField5.setEnabled(false);
+            jTextField6.setEnabled(false);
+            jCheckBox1.setEnabled(false);
+            jCheckBox2.setEnabled(false);
+            jCheckBox1.setSelected(true);
+            jCheckBox2.setSelected(false);
+        }
+        else{
+            jLabel2.setEnabled(true);
+            jLabel3.setEnabled(true);
+            jTextField1.setEnabled(false);
+            jTextField2.setEnabled(false);
+            jTextField3.setEnabled(false);
+            jTextField4.setEnabled(false);
+            jTextField5.setEnabled(false);
+            jTextField6.setEnabled(false);
+            jCheckBox1.setEnabled(true);
+            jCheckBox2.setEnabled(true);
+            jCheckBox1.setSelected(true);
+            jCheckBox2.setSelected(false);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void getUserInput(int stMode){
         Thread newThread = new Thread(()->{
@@ -398,40 +394,40 @@ public class AnalyticsViewer extends javax.swing.JFrame {
                 
                 try {
                     switch(stMode){
-                        case 1:
+                        case 0:
                             this.loadTotalSummery(SQLStatisticsManagerNew.getTotalSummery(sDate,eDate));
                             break;
-                        case 2:
+                        case 1:
                             this.loadOverallAmountTable(SQLStatisticsManagerNew.getOverallAmount(sDate,eDate));
                             break;
-                        case 3:
+                        case 2:
                             this.loadSizeAmountTable(SQLStatisticsManagerNew.getSizeAmount(sDate,eDate));
                             break;
-                        case 4:
+                        case 3:
                             this.loadColorAmountTable(SQLStatisticsManagerNew.getStockColorAmount(sDate,eDate));
                             break;
-                        case 5:
+                        case 4:
                             this.loadOverallCountTable(SQLStatisticsManagerNew.getOverallCount(sDate,eDate));
                             break;
-                        case 6:
+                        case 5:
                             this.loadSizeCountTable(SQLStatisticsManagerNew.getSizeCount(sDate,eDate));
                             break;
-                        case 7:
+                        case 6:
                             this.loadColorCountTable(SQLStatisticsManagerNew.getStockColorCount(sDate,eDate));
                             break;
-                        case 8:
+                        case 7:
                             this.loadOverallProfitTable(SQLStatisticsManagerNew.getOverallProfit(sDate,eDate));
                             break;
-                        case 9:
+                        case 8:
                             this.loadSizeProfitTable(SQLStatisticsManagerNew.getSizeProfit(sDate,eDate));
                             break;
-                        case 10:
+                        case 9:
                             this.loadColorProfitTable(SQLStatisticsManagerNew.getColorProfit(sDate,eDate));
                             break;
-                        case 11:
+                        case 10:
                             this.loadStockProfitTable(SQLStatisticsManagerNew.getStockProfit(sDate,eDate));
                             break;
-                        case 12:
+                        case 11:
                             this.loadSoldAndAvailableTable(SQLStatisticsManagerNew.getSoldAndAvailable(sDate,getYearMonthDate()));
                             break;
                         default:
@@ -471,40 +467,40 @@ public class AnalyticsViewer extends javax.swing.JFrame {
                 jTextField6.setText(getDate());
 
                 switch(stMode){
-                    case 1:
+                    case 0:
                         this.loadTotalSummery(SQLStatisticsManagerNew.getTotalSummery(sDate,getYearMonthDate()));
                         break;
-                    case 2:
+                    case 1:
                         this.loadOverallAmountTable(SQLStatisticsManagerNew.getOverallAmount(sDate,getYearMonthDate()));
                         break;
-                    case 3:
+                    case 2:
                         this.loadSizeAmountTable(SQLStatisticsManagerNew.getSizeAmount(sDate,getYearMonthDate()));
                         break;
-                    case 4:
+                    case 3:
                         this.loadColorAmountTable(SQLStatisticsManagerNew.getStockColorAmount(sDate,getYearMonthDate()));
                         break;
-                    case 5:
+                    case 4:
                         this.loadOverallCountTable(SQLStatisticsManagerNew.getOverallCount(sDate,getYearMonthDate()));
                         break;
-                    case 6:
+                    case 5:
                         this.loadSizeCountTable(SQLStatisticsManagerNew.getSizeCount(sDate,getYearMonthDate()));
                         break;
-                    case 7:
+                    case 6:
                         this.loadColorCountTable(SQLStatisticsManagerNew.getStockColorCount(sDate,getYearMonthDate()));
                         break;
-                    case 8:
+                    case 7:
                         this.loadOverallProfitTable(SQLStatisticsManagerNew.getOverallProfit(sDate,getYearMonthDate()));
                         break;
-                    case 9:
+                    case 8:
                         this.loadSizeProfitTable(SQLStatisticsManagerNew.getSizeProfit(sDate,getYearMonthDate()));
                         break;
-                    case 10:
+                    case 9:
                         this.loadColorProfitTable(SQLStatisticsManagerNew.getColorProfit(sDate,getYearMonthDate()));
                         break;
-                    case 11:
+                    case 10:
                         this.loadStockProfitTable(SQLStatisticsManagerNew.getStockProfit(sDate,getYearMonthDate()));
                         break;
-                    case 12:
+                    case 11:
                         this.loadSoldAndAvailableTable(SQLStatisticsManagerNew.getSoldAndAvailable(sDate,getYearMonthDate()));
                         break;
                     default:
@@ -519,7 +515,6 @@ public class AnalyticsViewer extends javax.swing.JFrame {
     
     private void createTable(List<Object[]> rows, String[] columnNames, int[] rsIndexes){
         Thread newThread = new Thread(()->{
-            System.out.println("creating table");
             DefaultTableModel model = new DefaultTableModel();
             jTable1.setModel(model);
             jProgressBar1.setValue(10);
@@ -551,9 +546,8 @@ public class AnalyticsViewer extends javax.swing.JFrame {
     }
     
     private int validateInteger(JTextField tf) {
-        int result = -1;
         try {
-            result = Integer.parseInt(tf.getText());
+            Integer.parseInt(tf.getText());
             return 1;
         } catch (NumberFormatException exc) {
             System.out.println(exc.getMessage());
@@ -597,7 +591,6 @@ public class AnalyticsViewer extends javax.swing.JFrame {
     private void loadStockProfitTable(List<Object[]> rows){
         createTable(rows,new String[]{"Stock id","Category id","Category name","Size","color","sold item","buying price","selling price","Profit"},new int[]{6,7,8});
     }
-    
     //new function 20240504 
     private void loadSoldAndAvailableTable(List<Object[]> rows){
         createTable(rows, new String[]{"Stock id","Category id","Category name","Size","color","Bought quantity","Sold quantity","Available quantity"},null);

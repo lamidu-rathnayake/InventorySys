@@ -1,4 +1,4 @@
-package JujubesInventoryManager.Backend.classes;
+package JujubesInventoryManager.Backend.UpdateFunctionClasses;
 
 public class Stock {
     private int previousStock_id;

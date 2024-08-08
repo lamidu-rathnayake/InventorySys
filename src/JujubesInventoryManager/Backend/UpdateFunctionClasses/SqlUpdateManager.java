@@ -1,6 +1,4 @@
-package JujubesInventoryManager.Backend.classes;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+package JujubesInventoryManager.Backend.UpdateFunctionClasses;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +14,10 @@ public class SqlUpdateManager extends SQLManagerNew {
     // insertData(String query, Object[] array) (inherited)
     // getResult(query, sDate, eDate) (inhetited)
 
-    private Customer customer;
-    private Stock stock;
-    private Transaction transaction;
-    private TransactionItem transactionItem;
+    protected Customer customer;
+    protected Stock stock;
+    protected Transaction transaction;
+    protected TransactionItem transactionItem;
 
     public SqlUpdateManager(){
         this.customer = null;
@@ -33,13 +31,16 @@ public class SqlUpdateManager extends SQLManagerNew {
         stock = new Stock(sid, category, color, size, quantity, buying_price, selling_price, buying_date);
     }
     public void createCustomer(int cid, String name, int contact, String address, String email){
+        System.out.println("o1 done");
         customer = new Customer(cid, name, contact, address, email);
     }
     public void createTransaction(int tid, int cid, String date, double totalAmount){
+        System.out.println("o2 done");
         transaction = new Transaction(tid, cid, date, totalAmount);
     }
-    public void createTransactionItem(int tid, ArrayList<Integer> sid, ArrayList<Integer> quantity, ArrayList<Double> amount){
+    public void createTransactionItem(int tid, List<Integer> sid, List<Integer> quantity, List<Double> amount){
         transactionItem = new TransactionItem(tid, sid, quantity, amount);
+        System.out.println("o3 done");
     }
 
 
@@ -48,21 +49,20 @@ public class SqlUpdateManager extends SQLManagerNew {
     public void intializeStock(int sid){
         List<Object> stockInfo = new ArrayList<>();
         //getting the stock infomations from the stock table
-        for(Object item : SQLManagerNew.getStockInfo(sid)) stockInfo.add(item);
+        for(Object item : getStockInfo(sid)) stockInfo.add(item);
         
         //create stock object with that informations
         createStock(
             (int) stockInfo.get(0), 
-            SQLManagerNew.getCategoryName((int)stockInfo.get(1)), 
-            SQLManagerNew.getColorName((int)stockInfo.get(2)), 
-            SQLManagerNew.getSizeName((int)stockInfo.get(3)), 
+            getCategoryName((int)stockInfo.get(1)), 
+            getColorName((int)stockInfo.get(2)), 
+            getSizeName((int)stockInfo.get(3)), 
             (int) stockInfo.get(4), 
             (double) stockInfo.get(5), 
             (double) stockInfo.get(6),
             String.valueOf(stockInfo.get(7)) 
         ); 
     }
- 
     //updating the stock infomation 
     public void changeStockInfo(Stock stock){
         this.stock = stock;
@@ -89,14 +89,14 @@ public class SqlUpdateManager extends SQLManagerNew {
 
         
         // checking the existency and add
-        if(SQLManagerNew.getCid(stock.getCategory())==-1)SQLManagerNew.addNewCategory(stock.getCategory());
-        if(SQLManagerNew.getColorId(stock.getColor())==-1)SQLManagerNew.addColor(stock.getColor()); 
-        if(SQLManagerNew.getSizeId(stock.getSize())==-1)SQLManagerNew.addSize(stock.getSize());
+        if(getCid(stock.getCategory())==-1)addNewCategory(stock.getCategory());
+        if(getColorId(stock.getColor())==-1)addColor(stock.getColor()); 
+        if(getSizeId(stock.getSize())==-1)addSize(stock.getSize());
 
-        SQLManagerNew.insertData(updateQuery, new Object[]{
-            SQLManagerNew.getCid(stock.getCategory()),
-            SQLManagerNew.getColorId(stock.getColor()),
-            SQLManagerNew.getSizeId(stock.getSize()),
+        insertData(updateQuery, new Object[]{
+            getCid(stock.getCategory()),
+            getColorId(stock.getColor()),
+            getSizeId(stock.getSize()),
             stock.getQuantity(),
             stock.getBuying_price(),
             stock.getSelling_price(),

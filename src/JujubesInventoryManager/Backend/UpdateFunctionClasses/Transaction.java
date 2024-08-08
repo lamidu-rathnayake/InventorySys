@@ -1,4 +1,4 @@
-package JujubesInventoryManager.Backend.classes;
+package JujubesInventoryManager.Backend.UpdateFunctionClasses;
 
 public class Transaction {
     private int transaction_id;
@@ -30,8 +30,8 @@ public class Transaction {
     public String getDate(){
         return this.date;
     }
-    public void setDate(int year, int month, int date){
-        this.date = year+"-"+month+"-"+date;
+    public void setDate(String date){
+        this.date = date;
     }
 
     public double getAmount(){

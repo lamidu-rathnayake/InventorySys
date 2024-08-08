@@ -4,8 +4,8 @@
  */
 package JujubesInventoryManager.Frontend;
 import JujubesInventoryManager.Backend.SQLManagerNew;
-import JujubesInventoryManager.Backend.classes.SqlUpdateManager;
-import JujubesInventoryManager.Backend.classes.Stock;
+import JujubesInventoryManager.Backend.UpdateFunctionClasses.SqlUpdateManager;
+import JujubesInventoryManager.Backend.UpdateFunctionClasses.Stock;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
@@ -472,8 +472,8 @@ public class ChangeStockInfo extends javax.swing.JFrame {
             else stock.setSize((String)jComboBox3.getSelectedItem());
             
             //concatinating the year-month-date
-            String concat = jTextField7.getText()+"-"+jTextField8.getText()+"-"+jTextField9.getText();
-            stock.setBuying_date(concat);
+            String concatinatedDate = jTextField7.getText()+"-"+jTextField8.getText()+"-"+jTextField9.getText();
+            stock.setBuying_date(concatinatedDate);
             
             //update the stock in Stock class
             sqlManager.changeStockInfo(stock);

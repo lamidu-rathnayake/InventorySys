@@ -9,6 +9,7 @@ import java.util.List;
  * SQLStatisticsManagerNew
  */
 public class SQLStatisticsManagerNew  extends SQLManagerNew{
+    // getResult(String query, String sDate, String eDate) (inherited method)
 
     //gets total statistics
     public static List<Object[]> getTotalSummery(String sDate, String eDate)throws SQLException{
@@ -27,13 +28,13 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
                         "    transaction t ON ti.transaction_id = t.transaction_id\n"+
                         "where t.date between ? and ?;";
         results = SQLManagerNew.getResult(query,sDate,eDate);
-        System.out.println("pass the line");
         while(results.next()) rows.add(new Object[]{
             results.getDouble("total_amount"), 
             results.getInt("total_sold_items"), 
             results.getDouble("total_cost"),
             results.getDouble("total_profit") 
-            });
+        });
+        SQLManagerNew.closeConnection();
         return rows;        
     }
 
@@ -65,6 +66,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getInt("category_id"),
             results.getString("category_name"),
             results.getDouble("total_sold_amount")});
+        SQLManagerNew.closeConnection();
         return rows;
     }
 
@@ -99,6 +101,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getString("category_name"),
             results.getString("size"),
             results.getDouble("amount")});
+        SQLManagerNew.closeConnection();
         return rows;        
     }
 
@@ -137,6 +140,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getString("Size"),
             results.getString("Color"),
             results.getDouble("Amount")});
+        SQLManagerNew.closeConnection();
         return rows; 
     }
 
@@ -158,6 +162,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getInt("Category id"),
             results.getString("Category name"),
             results.getInt("Total quantity")});
+        SQLManagerNew.closeConnection();
         return rows;
     }
 
@@ -179,6 +184,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getString("Category name"),
             results.getString("Size"),
             results.getInt("Quantity")});
+        SQLManagerNew.closeConnection();
         return rows;
     }
 
@@ -204,6 +210,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getString("size"),
             results.getString("color"),
             results.getInt("total quantity")});
+        SQLManagerNew.closeConnection();
         return rows;
     }
 
@@ -226,6 +233,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getInt("Category id"),
             results.getString("Category name"),
             results.getDouble("Total profit")});
+        SQLManagerNew.closeConnection();
         return rows;
     }
 
@@ -253,6 +261,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getString("Size"),
             results.getInt("Quantity"),
             results.getDouble("Profit")});
+        SQLManagerNew.closeConnection();
         return rows;
     }
 
@@ -283,6 +292,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
             results.getString("color"),
             results.getInt("Quantity"),
             results.getDouble("Profit")});
+        SQLManagerNew.closeConnection();
         return rows;
     }
 
@@ -321,47 +331,10 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
                 results.getDouble("selling price"),
                 results.getDouble("Profit")});
         }
+        SQLManagerNew.closeConnection();
         return rows;
     }
 
-
-    //this function for the selling history window
-    //transactions: for the time range and the default time range 
-    public static List<Object[]> getHistory (String sDate ,String eDate)throws SQLException{ 
-        List <Object[]> rows = new ArrayList<>();
-        ResultSet results = null;
-        
-        String query = "SELECT t.transaction_id, t.date AS date, c.customer_name AS customer_name, " +
-        "c.customer_contact AS customer_number, c.address AS address, " +
-        "s.stock_id AS sid, s.category_id AS cid, cat.category_name AS category, " +
-        "clr.color_name AS color, sz.size_name AS size, ti.quantity AS count, " +
-        "ti.amount " +
-        "FROM transaction t " +
-        "LEFT JOIN transaction_items ti ON t.transaction_id = ti.transaction_id " +
-        "LEFT JOIN stock s ON ti.stock_id = s.stock_id " +
-        "LEFT JOIN color clr ON s.color_id = clr.color_id " +
-        "LEFT JOIN category cat ON s.category_id = cat.category_id " +
-        "LEFT JOIN size sz ON s.size_id = sz.size_id " +
-        "LEFT JOIN customer c ON t.customer_id = c.customer_id " +
-        "WHERE t.date BETWEEN ? AND ?;";
-                
-        results = SQLManagerNew.getResult(query,sDate,eDate);
-        while(results.next())rows.add(new Object[]{
-            results.getInt("transaction_id"), 
-            results.getString("date"), 
-            results.getString("customer_name"), 
-            results.getString("customer_number"), 
-            results.getString("address"), 
-            results.getInt("sid"), 
-            results.getInt("cid"), 
-            results.getString("category"), 
-            results.getString("color"), 
-            results.getString("size"), 
-            results.getInt("count"),
-            results.getDouble("amount")    
-        });
-        return rows;
-    }
 
     //new function 20240504
     //gets the sold available statistics
@@ -399,6 +372,7 @@ public class SQLStatisticsManagerNew  extends SQLManagerNew{
                     results.getInt("Available quantity")
             });
         }
+        SQLManagerNew.closeConnection();
         return rows;
     }
 }

@@ -4,7 +4,7 @@
  */
 package JujubesInventoryManager.Frontend;
 
-import JujubesInventoryManager.Backend.SQLStatisticsManagerNew;
+import JujubesInventoryManager.Backend.SQLManagerNew;
 import java.awt.Color;
 import java.awt.Component;
 import java.sql.SQLException;
@@ -320,10 +320,8 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                         String sDate = jTextField1.getText() + "-" +jTextField2.getText() + "-" + jTextField3.getText();
                         String eDate = jTextField4.getText() + "-" +jTextField5.getText() + "-" + jTextField6.getText();
 
-                        System.out.println(sDate);
-                        System.out.println(eDate);
                         jProgressBar1.setValue(5);
-                        List<Object[]> rows = SQLStatisticsManagerNew.getHistory(sDate,eDate);
+                        List<Object[]> rows = SQLManagerNew.getHistory(sDate,eDate);
                         jProgressBar1.setValue(10);
                         loadTable(rows);
                     }
@@ -331,7 +329,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                 else if (jCheckBox2.isSelected()){
                     String sDate = getYearMonth()+"-01";
                     jProgressBar1.setValue(5);
-                    List<Object[]> rows = SQLStatisticsManagerNew.getHistory(sDate,getYearMonthDate());
+                    List<Object[]> rows = SQLManagerNew.getHistory(sDate,getYearMonthDate());
                     jProgressBar1.setValue(10);
                     
                     jTextField1.setText(getYear());
@@ -392,27 +390,30 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
             model.addColumn("Customer Name");//2
             model.addColumn("Customer Number");//3
             model.addColumn("Customer Address");//4
-            model.addColumn("Stock Id");//5
-            model.addColumn("Category Id");//6
-            model.addColumn("Category");//7
-            model.addColumn("Color");//8
-            model.addColumn("Size");//9
-            model.addColumn("Count");//10
-            model.addColumn("Amount");//11
+            model.addColumn("Customer Email");//5
+            model.addColumn("Stock Id");//6
+            model.addColumn("Category Id");//7
+            model.addColumn("Category");//8
+            model.addColumn("Color");//9
+            model.addColumn("Size");//10
+            model.addColumn("Count");//11
+            model.addColumn("Amount");//12
 
             TableColumn column0 = jTable1.getColumnModel().getColumn(0);
             TableColumn column1 = jTable1.getColumnModel().getColumn(1);
-            TableColumn column5 = jTable1.getColumnModel().getColumn(5);
             TableColumn column6 = jTable1.getColumnModel().getColumn(6);
+            TableColumn column7 = jTable1.getColumnModel().getColumn(7);
             TableColumn column9 = jTable1.getColumnModel().getColumn(9);
             TableColumn column10 = jTable1.getColumnModel().getColumn(10);
+            TableColumn column11 = jTable1.getColumnModel().getColumn(11);
 
             column0.setPreferredWidth(20);
             column1.setPreferredWidth(40);
-            column5.setPreferredWidth(20);
             column6.setPreferredWidth(20);
+            column7.setPreferredWidth(20);
             column9.setPreferredWidth(20);
             column10.setPreferredWidth(20);
+            column11.setPreferredWidth(20);
 
 
             int progressU = 90/rows.size();

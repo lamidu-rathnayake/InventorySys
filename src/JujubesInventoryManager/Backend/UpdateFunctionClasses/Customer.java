@@ -1,4 +1,4 @@
-package JujubesInventoryManager.Backend.classes;
+package JujubesInventoryManager.Backend.UpdateFunctionClasses;
 
 public class Customer {
     private int customer_id;
@@ -13,12 +13,6 @@ public class Customer {
         this.contact = contact;
         this.address = address;
         this.email = email;
-        
-        System.out.println(this.customer_id);
-        System.out.println(this.name);
-        System.out.println(this.contact);
-        System.out.println(this.address);
-        System.out.println(this.email);
     }
 
     public int getCustomer_id(){

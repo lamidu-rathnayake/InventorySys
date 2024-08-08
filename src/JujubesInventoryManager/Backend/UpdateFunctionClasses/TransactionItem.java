@@ -1,13 +1,13 @@
-package JujubesInventoryManager.Backend.classes;
+package JujubesInventoryManager.Backend.UpdateFunctionClasses;
 import java.util.*;
 
 public class TransactionItem {
     private int transaction_id;
-    private ArrayList<Integer> stock_id;
-    private ArrayList<Integer> quantity;
-    private ArrayList<Double> amount;
+    private List<Integer> stock_id;
+    private List<Integer> quantity;
+    private List<Double> amount;
 
-    TransactionItem(int tid, ArrayList<Integer> sid, ArrayList<Integer> quantity, ArrayList<Double> amount){
+    TransactionItem(int tid, List<Integer> sid, List<Integer> quantity, List<Double> amount){
         this.transaction_id = tid;
         this.stock_id = sid;
         this.quantity = quantity;
@@ -21,24 +21,24 @@ public class TransactionItem {
         this.transaction_id = tid;
     }
 
-    public ArrayList<Integer> getStock_id(){
+    public List<Integer> getStock_id(){
         return this.stock_id;
     }
-    public void setStock_id(ArrayList<Integer> stock_id){
+    public void setStock_id(List<Integer> stock_id){
         this.stock_id = stock_id;
     }
 
-    public ArrayList<Integer> getQuantity(){
+    public List<Integer> getQuantity(){
         return this.quantity;
     }
-    public void setQuantity(ArrayList<Integer> quantity){
+    public void setQuantity(List<Integer> quantity){
         this.quantity = quantity;
     }
 
-    public ArrayList<Double> getAmount(){
+    public List<Double> getAmount(){
         return this.amount;       
     }
-    public void setAmount(ArrayList<Double> amount){
+    public void setAmount(List<Double> amount){
         this.amount = amount;
     }
 }
