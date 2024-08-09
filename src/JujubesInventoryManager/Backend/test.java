@@ -1,13 +1,15 @@
 package JujubesInventoryManager.Backend;
-import JujubesInventoryManager.Backend.UpdateFunctionClasses.SqlUpdateManager;
 import JujubesInventoryManager.Backend.UpdateFunctionClasses.SqlUpdateManagerTransaction;
-import JujubesInventoryManager.Backend.UpdateFunctionClasses.Stock;
+import JujubesInventoryManager.Backend.UpdateFunctionClasses.Transaction;
 
 public class test extends SQLTableUpdateManager{
     public static void main(String[] args) {
         SqlUpdateManagerTransaction manager = new SqlUpdateManagerTransaction();
+        manager.getTransactionDataFromdb(2);//2
 
-        manager.getTransactionDataFromdb(1);
+        Transaction transaction = manager.getTransactionObj();
+        
+
 
     }
 }

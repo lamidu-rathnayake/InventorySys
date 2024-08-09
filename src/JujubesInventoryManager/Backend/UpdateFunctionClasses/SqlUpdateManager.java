@@ -30,17 +30,14 @@ public class SqlUpdateManager extends SQLManagerNew {
     public void createStock(int sid, String category, String color, String size, int quantity, double buying_price, double selling_price, String buying_date){
         stock = new Stock(sid, category, color, size, quantity, buying_price, selling_price, buying_date);
     }
-    public void createCustomer(int cid, String name, int contact, String address, String email){
-        System.out.println("o1 done");
+    public void createCustomer(int cid, String name, long contact, String address, String email){
         customer = new Customer(cid, name, contact, address, email);
     }
     public void createTransaction(int tid, int cid, String date, double totalAmount){
-        System.out.println("o2 done");
         transaction = new Transaction(tid, cid, date, totalAmount);
     }
     public void createTransactionItem(int tid, List<Integer> sid, List<Integer> quantity, List<Double> amount){
         transactionItem = new TransactionItem(tid, sid, quantity, amount);
-        System.out.println("o3 done");
     }
 
 

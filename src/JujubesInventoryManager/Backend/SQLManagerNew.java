@@ -53,7 +53,7 @@ public class SQLManagerNew {
         ResultSet results;
         try{
             statement = getConnection().prepareStatement(query);
-
+            
             int i = 1;// used to indecate the current column "starts from the 1st column"
             for (Object object : array) {
                 if (object instanceof String)
@@ -62,8 +62,10 @@ public class SQLManagerNew {
                     statement.setDouble(i, (Double) object);
                 else if (object instanceof Integer)
                     statement.setInt(i, (Integer) object);
+                else if (object instanceof Long)
+                    statement.setLong(i, (Long) object);
                 else
-                    System.out.println("Column type can not recognize!!!");
+                    throw new SQLException("invalid data input");
                 i++;
             } // setting up the statement by iterating the array
 
@@ -90,6 +92,8 @@ public class SQLManagerNew {
                     statement.setDouble(i, (Double) object);
                 else if (object instanceof Integer)
                     statement.setInt(i, (Integer) object);
+                else if (object instanceof Long) 
+                    statement.setLong(i, (Long) object);
                 else
                     System.out.println("Column type can not recognize!!!");
                 i++;

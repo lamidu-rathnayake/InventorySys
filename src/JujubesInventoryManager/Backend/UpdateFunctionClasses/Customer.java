@@ -3,11 +3,11 @@ package JujubesInventoryManager.Backend.UpdateFunctionClasses;
 public class Customer {
     private int customer_id;
     private String name;
-    private int contact;
+    private long contact;
     private String address;
     private String email;
 
-    Customer(int cid, String name, int contact, String address, String email){
+    Customer(int cid, String name, long contact, String address, String email){
         this.customer_id = cid;
         this.name = name;
         this.contact = contact;
@@ -18,9 +18,9 @@ public class Customer {
     public int getCustomer_id(){
         return this.customer_id;
     }
-    public void setCustomer_id(int cid){
-        this.customer_id = cid;
-    }
+    // public void setCustomer_id(int cid){
+    //     this.customer_id = cid;
+    // }
 
     public String getName(){
         return this.name;
@@ -29,10 +29,10 @@ public class Customer {
         this.name = name;
     }
 
-    public int getContact(){
+    public long getContact(){
         return this.contact;
     }
-    public void setContact(int contact){
+    public void setContact(long contact){
         this.contact = contact;
     }
 

@@ -17,28 +17,28 @@ public class TransactionItem {
     public int getTransaction_id(){
         return this.transaction_id;
     }
-    public void setTransacion_id(int tid){
-        this.transaction_id = tid;
-    }
+    // public void setTransacion_id(int tid){
+    //     this.transaction_id = tid;
+    // }
 
-    public List<Integer> getStock_id(){
+    public List<Integer> getStock_ids(){
         return this.stock_id;
     }
-    public void setStock_id(List<Integer> stock_id){
+    public void setStock_ids(List<Integer> stock_id){
         this.stock_id = stock_id;
     }
 
-    public List<Integer> getQuantity(){
+    public List<Integer> getQuantitys(){
         return this.quantity;
     }
-    public void setQuantity(List<Integer> quantity){
+    public void setQuantitys(List<Integer> quantity){
         this.quantity = quantity;
     }
 
-    public List<Double> getAmount(){
+    public List<Double> getAmounts(){
         return this.amount;       
     }
-    public void setAmount(List<Double> amount){
+    public void setAmounts(List<Double> amount){
         this.amount = amount;
     }
 }
