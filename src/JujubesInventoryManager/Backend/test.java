@@ -5,9 +5,9 @@ import JujubesInventoryManager.Backend.UpdateFunctionClasses.Transaction;
 public class test extends SQLTableUpdateManager{
     public static void main(String[] args) {
         SqlUpdateManagerTransaction manager = new SqlUpdateManagerTransaction();
-        manager.getTransactionDataFromdb(2);//2
+        manager.initializeTransaction(2);//2
 
-        Transaction transaction = manager.getTransactionObj();
+        // Transaction transaction = manager.getTransactionObj();
         
 
 

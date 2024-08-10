@@ -426,6 +426,8 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                     Thread.sleep(40);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(TransactionHistoryViewer.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ArrayIndexOutOfBoundsException ex){
+                    System.out.println(ex.getMessage());
                 }
             }
             jProgressBar1.setVisible(false);
