@@ -232,7 +232,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
         insertData(query, new Object[] {transactionItem.getTransaction_id()});
     }
 
-
     public double getSellPrice(int sid){
         return getSellingPrice(sid);
     }
@@ -268,6 +267,9 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
         return this.customer.getEmail();
     }
 
+    public int getTransactionId(){
+        return this.transaction.getTransaction_id();
+    }
     public String getTdate(){
         return this.transaction.getDate();
     }

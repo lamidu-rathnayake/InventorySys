@@ -362,7 +362,7 @@ public class SQLManagerNew {
     // gets the selling price for the sid;
     protected static double getSellingPrice(int sid) {
         String query = "select selling_price from stock where stock_id = ?";
-        double selling_price = 0;
+        double selling_price = 0.0;
         try {
             statement = getConnection().prepareStatement(query);
             statement.setInt(1, sid);

@@ -345,6 +345,13 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
             catch(SQLException exc){
                 System.out.println(exc.getMessage());
             }
+            catch(ArithmeticException ex){
+                System.out.println("error1");
+                
+            }
+            catch(ArrayIndexOutOfBoundsException ex){
+                System.out.println("out of bound");
+            }
         
         });
         newThread.start();
@@ -383,53 +390,62 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
     }
     private void loadTable(List<Object[]> rows) {
         Thread newThread = new Thread(()->{
-            javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
-            jTable1.setModel(model);
-            model.addColumn("Transaction_id");//0
-            model.addColumn("Date");//1
-            model.addColumn("Customer Name");//2
-            model.addColumn("Customer Number");//3
-            model.addColumn("Customer Address");//4
-            model.addColumn("Customer Email");//5
-            model.addColumn("Stock Id");//6
-            model.addColumn("Category Id");//7
-            model.addColumn("Category");//8
-            model.addColumn("Color");//9
-            model.addColumn("Size");//10
-            model.addColumn("Count");//11
-            model.addColumn("Amount");//12
+            try{
+                javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
+                jTable1.setModel(model);
+                model.addColumn("Transaction_id");//0
+                model.addColumn("Date");//1
+                model.addColumn("Customer Name");//2
+                model.addColumn("Customer Number");//3
+                model.addColumn("Customer Address");//4
+                model.addColumn("Customer Email");//5
+                model.addColumn("Stock Id");//6
+                model.addColumn("Category Id");//7
+                model.addColumn("Category");//8
+                model.addColumn("Color");//9
+                model.addColumn("Size");//10
+                model.addColumn("Count");//11
+                model.addColumn("Amount");//12
 
-            TableColumn column0 = jTable1.getColumnModel().getColumn(0);
-            TableColumn column1 = jTable1.getColumnModel().getColumn(1);
-            TableColumn column6 = jTable1.getColumnModel().getColumn(6);
-            TableColumn column7 = jTable1.getColumnModel().getColumn(7);
-            TableColumn column9 = jTable1.getColumnModel().getColumn(9);
-            TableColumn column10 = jTable1.getColumnModel().getColumn(10);
-            TableColumn column11 = jTable1.getColumnModel().getColumn(11);
+                TableColumn column0 = jTable1.getColumnModel().getColumn(0);
+                TableColumn column1 = jTable1.getColumnModel().getColumn(1);
+                TableColumn column6 = jTable1.getColumnModel().getColumn(6);
+                TableColumn column7 = jTable1.getColumnModel().getColumn(7);
+                TableColumn column9 = jTable1.getColumnModel().getColumn(9);
+                TableColumn column10 = jTable1.getColumnModel().getColumn(10);
+                TableColumn column11 = jTable1.getColumnModel().getColumn(11);
 
-            column0.setPreferredWidth(20);
-            column1.setPreferredWidth(40);
-            column6.setPreferredWidth(20);
-            column7.setPreferredWidth(20);
-            column9.setPreferredWidth(20);
-            column10.setPreferredWidth(20);
-            column11.setPreferredWidth(20);
+                column0.setPreferredWidth(20);
+                column1.setPreferredWidth(40);
+                column6.setPreferredWidth(20);
+                column7.setPreferredWidth(20);
+                column9.setPreferredWidth(20);
+                column10.setPreferredWidth(20);
+                column11.setPreferredWidth(20);
 
 
-            int progressU = 90/rows.size();
-            int progressC = 10; 
-            for(Object[] row:rows){
-                model.addRow(row);
-                progressC += progressU;
-                jProgressBar1.setValue(progressC);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(TransactionHistoryViewer.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (ArrayIndexOutOfBoundsException ex){
-                    System.out.println(ex.getMessage());
+                int progressU = 90/rows.size();
+                int progressC = 10; 
+                for(Object[] row:rows){
+                    model.addRow(row);
+                    progressC += progressU;
+                    jProgressBar1.setValue(progressC);
+                    try {
+                        Thread.sleep(40);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(TransactionHistoryViewer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ArrayIndexOutOfBoundsException ex){
+                        System.out.println(ex.getMessage());
+                    }
                 }
             }
+            catch(ArithmeticException ex){
+                System.out.println("error2");
+            }
+            catch(ArrayIndexOutOfBoundsException ex){
+                System.out.println("out of bound");
+            }
+            
             jProgressBar1.setVisible(false);
         });
         newThread.start();
