@@ -19,7 +19,7 @@ import javax.swing.table.JTableHeader;
  *
  * @author User
  */
-public class ChangeTransactionInfo extends javax.swing.JFrame {
+public class ChangeTransactionInfo extends javax.swing.JFrame{
     SqlUpdateManagerTransaction updateManager;
     List<Integer> stockIds;
     List<Integer> quantities;
@@ -94,8 +94,9 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
         jLabel8 = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        jLabel9 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jTextField28 = new javax.swing.JTextField();
         jTextField17 = new javax.swing.JTextField();
@@ -342,7 +343,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
         jLabel2.setText("Total amount :");
 
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("0.0");
+        jLabel3.setText("Rs 0.0");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -388,14 +389,14 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
         jLabel8.setText(" ");
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(34, 40, 49)));
 
+        jProgressBar1.setForeground(new java.awt.Color(0, 255, 51));
+
+        jLabel9.setBackground(new java.awt.Color(34, 40, 49));
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(201, 201, 201))
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -403,32 +404,46 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 16, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))
+                .addGap(0, 20, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(81, 81, 81)
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93))
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(8, 8, 8)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(20, 20, 20)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 16;
-        gridBagConstraints.ipady = 151;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 169;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(30, 20, 30, 30);
         jPanel4.add(jPanel6, gridBagConstraints);
@@ -568,7 +583,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
                     .addComponent(jButton8))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -576,9 +591,9 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipadx = 14;
-        gridBagConstraints.ipady = 14;
+        gridBagConstraints.ipady = 10;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(20, 30, 30, 0);
+        gridBagConstraints.insets = new java.awt.Insets(18, 30, 30, 0);
         jPanel4.add(jPanel7, gridBagConstraints);
 
         getContentPane().add(jPanel4);
@@ -627,25 +642,24 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // add stock and quantity
         try{
-            double amount = updateManager. getSellPrice(Integer.parseInt(jTextField4.getText()))*Integer.parseInt(jTextField5.getText());
+            double amount = updateManager.getSellPrice(Integer.parseInt(jTextField4.getText()))*Integer.parseInt(jTextField5.getText());
             if (amount != 0.0){
                 stockIds.add(Integer.parseInt(jTextField4.getText()));
                 quantities.add(Integer.parseInt(jTextField5.getText()));
-                jLabel8.setText("");
                 amounts.add(amount);
+                jLabel8.setText("");
                 updateTable();
                 initializeLabels();
             }
             else {
                 jLabel8.setText("stock id doesn't exist");
             }
-            System.out.println(stockIds);
-            System.out.println(quantities);
         }
         catch(NumberFormatException ex){
             jLabel8.setText("Invalid stock_id or quantity");
         }
         catch(NullPointerException ex){
+            System.out.println(ex.getMessage());
             jLabel8.setText("Invalid action before initialization");
         }
         
@@ -664,9 +678,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
                         amounts.remove(row-removedItemsCount);
                         removedItemsCount++;
                     }
-                    System.out.println("1>>");
                     updateTable();
-                    System.out.println("2>>");
                     initializeLabels();
                 }else{
                     stockIds.removeLast();
@@ -682,6 +694,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
             }
         }
         catch(NullPointerException ex){
+            System.out.println(ex.getMessage());
             jLabel8.setText("Invalid action before initialization");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -692,9 +705,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 //    cancel changes
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
         cancelChanges();
-
     }//GEN-LAST:event_jButton8ActionPerformed
 
   
@@ -722,7 +733,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
             totalAmount += amounts.get(i);
             i++;
         }
-        jLabel3.setText(String.valueOf(totalAmount));
+        jLabel3.setText("Rs " + String.valueOf(totalAmount));
         jLabel7.setText(String.valueOf(items));
     }
     
@@ -743,10 +754,11 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
                 progressC += progressU;
                 jProgressBar1.setValue(progressC);
                 try {
-                    Thread.sleep(40);
+                    Thread.sleep(80);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(TransactionHistoryViewer.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ArrayIndexOutOfBoundsException ex){
+                    System.out.println(ex.getMessage());
                     jLabel8.setText("Invalid action is encounted");
                 }
             }
@@ -754,14 +766,6 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
         });
         
         newThread.start();
-        
-        try{
-            newThread.join();
-        }
-        catch(InterruptedException e){
-            jLabel8.setText("Invalid action is encounted");
-        }
-        
     }
     private void updateTable(){
         Thread newThread = new Thread(()-> {
@@ -772,7 +776,6 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
                 model.addColumn("stock");
                 model.addColumn("quantity");
                 model.addColumn("amount");
-
 
                 if(stockIds==null && quantities==null && amounts==null){
                     jLabel8.setText("Invalid action before initialization");
@@ -789,33 +792,22 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
                         } catch (InterruptedException ex) {
                             Logger.getLogger(TransactionHistoryViewer.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (ArrayIndexOutOfBoundsException ex){
+                            System.out.println(ex.getMessage());
                             jLabel8.setText("Invalid action is encounted");
                         } 
                     }
-                    
-                    
                 }
             }catch(ArithmeticException e){
                 jLabel8.setText("");
             }
             catch(Exception e){
-                System.out.println(e.getMessage());
                 e.printStackTrace();
-                System.out.println("error");
+                System.out.println(e.getMessage());
                 jLabel8.setText("Invalid action is encounted");
             }
             jProgressBar1.setVisible(false);  
-
         });
-        
         newThread.start();
-        
-        try{
-            newThread.join();
-        }
-        catch(InterruptedException e){
-            jLabel8.setText("Invalid action is encounted");
-        }
     }
     
     //ARRAYS
@@ -823,9 +815,6 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
         stockIds = updateManager.getSids();
         quantities = updateManager.getSQuantities();
         amounts = updateManager.getAmounts();
-        System.out.println(stockIds);
-        System.out.println(quantities);
-        System.out.println(amounts);
     }
    
     //REFRESH
@@ -885,15 +874,12 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
             refresh();
         }
         catch(NullPointerException ex){
+            System.out.println(ex.getMessage());
             jLabel8.setText("Invalid action before initialization");
         }
         catch(NumberFormatException ex){
             jLabel8.setText("invalid contact number");
         }
-        
-        
-        
-        
     }
     
     //cancel changes
@@ -913,6 +899,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
             jLabel8.setText("Invalid user input");
         }
         catch(NullPointerException ex){
+            System.out.println(ex.getMessage());
             jLabel8.setText("Invalid action before initialization");
         }
     }
@@ -944,6 +931,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;

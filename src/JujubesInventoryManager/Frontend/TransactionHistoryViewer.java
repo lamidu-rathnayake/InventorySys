@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JTable;
@@ -75,6 +76,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(34, 40, 49));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
@@ -198,6 +200,11 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jLabel4.setBackground(new java.awt.Color(195, 197, 255));
+        jLabel4.setForeground(new java.awt.Color(165, 177, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText(" ");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -213,7 +220,6 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                             .addComponent(jButton2)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jButton1))
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2)
@@ -231,8 +237,10 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jCheckBox2))
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCheckBox2)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE))
         );
@@ -263,7 +271,9 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(30, 30, 30)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74))
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -288,6 +298,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Thread newThread = new Thread(()->{
             try{
+                List<Object[]> rows;
                 jProgressBar1.setVisible(true);
                 if(jCheckBox1.isSelected()){
                     int intValidateFlag = 0;
@@ -321,15 +332,23 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                         String eDate = jTextField4.getText() + "-" +jTextField5.getText() + "-" + jTextField6.getText();
 
                         jProgressBar1.setValue(5);
-                        List<Object[]> rows = SQLManagerNew.getHistory(sDate,eDate);
+                        rows = SQLManagerNew.getHistory(sDate,eDate);
                         jProgressBar1.setValue(10);
-                        loadTable(rows);
+                        if(rows.size()>0){
+                            loadTable(rows);
+                            jLabel4.setText("");
+                        }
+                        else {
+                            jLabel4.setText("No record exist");
+                            jProgressBar1.setVisible(false);
+                        }
+                        
                     }
                 }
                 else if (jCheckBox2.isSelected()){
                     String sDate = getYearMonth()+"-01";
                     jProgressBar1.setValue(5);
-                    List<Object[]> rows = SQLManagerNew.getHistory(sDate,getYearMonthDate());
+                    rows = SQLManagerNew.getHistory(sDate,getYearMonthDate());
                     jProgressBar1.setValue(10);
                     
                     jTextField1.setText(getYear());
@@ -339,18 +358,18 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                     jTextField5.setText(getMonth());
                     jTextField6.setText(getDate());
                     
-                    loadTable(rows);
+                    if(rows.size()>0){
+                        loadTable(rows);
+                        jLabel4.setText("");
+                    }
+                    else {
+                        jLabel4.setText("No record exist");
+                        jProgressBar1.setVisible(false);
+                    }
                 }
             }
-            catch(SQLException exc){
-                System.out.println(exc.getMessage());
-            }
-            catch(ArithmeticException ex){
-                System.out.println("error1");
-                
-            }
-            catch(ArrayIndexOutOfBoundsException ex){
-                System.out.println("out of bound");
+            catch (Exception ex){
+                System.out.println("Exception from submit: " + ex.getMessage());
             }
         
         });
@@ -364,6 +383,49 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jTextField4.setText("");
         jTextField5.setText("");
         jTextField6.setText("");
+        
+        jLabel4.setText("");
+        
+        jTextField1.setBackground(new java.awt.Color(34,40,49));
+        jTextField2.setBackground(new java.awt.Color(34,40,49));
+        jTextField3.setBackground(new java.awt.Color(34,40,49));
+        jTextField4.setBackground(new java.awt.Color(34,40,49));
+        jTextField5.setBackground(new java.awt.Color(34,40,49));
+        jTextField6.setBackground(new java.awt.Color(34,40,49));
+        
+        javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
+        jTable1.setModel(model);
+        model.addColumn("Transaction_id");//0
+        model.addColumn("Date");//1
+        model.addColumn("Customer Name");//2
+        model.addColumn("Customer Number");//3
+        model.addColumn("Customer Address");//4
+        model.addColumn("Customer Email");//5
+        model.addColumn("Stock Id");//6
+        model.addColumn("Category Id");//7
+        model.addColumn("Category");//8
+        model.addColumn("Color");//9
+        model.addColumn("Size");//10
+        model.addColumn("Count");//11
+        model.addColumn("Amount");//12
+        
+        TableColumn column0 = jTable1.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable1.getColumnModel().getColumn(1);
+        TableColumn column6 = jTable1.getColumnModel().getColumn(6);
+        TableColumn column7 = jTable1.getColumnModel().getColumn(7);
+        TableColumn column9 = jTable1.getColumnModel().getColumn(9);
+        TableColumn column10 = jTable1.getColumnModel().getColumn(10);
+        TableColumn column11 = jTable1.getColumnModel().getColumn(11);
+
+        column0.setPreferredWidth(20);
+        column1.setPreferredWidth(40);
+        column6.setPreferredWidth(20);
+        column7.setPreferredWidth(20);
+        column9.setPreferredWidth(20);
+        column10.setPreferredWidth(20);
+        column11.setPreferredWidth(20);
+        
+        jProgressBar1.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
@@ -383,8 +445,8 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
             x = Integer.parseInt(t.getText());
             return 1;
         }
-        catch(NumberFormatException exc){
-            System.out.println(exc.getMessage());
+        catch (Exception ex){
+            System.out.println("Exception from submit: " + ex.getMessage());
             return -1;
         }
     }
@@ -436,14 +498,14 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                         Logger.getLogger(TransactionHistoryViewer.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (ArrayIndexOutOfBoundsException ex){
                         System.out.println(ex.getMessage());
+                    } catch (Exception ex){
+                        System.out.println("Exception from submit: " + ex.getMessage());
                     }
+                    
                 }
             }
-            catch(ArithmeticException ex){
-                System.out.println("error2");
-            }
-            catch(ArrayIndexOutOfBoundsException ex){
-                System.out.println("out of bound");
+            catch (Exception ex){
+                System.out.println("Exception from submit: " + ex.getMessage());
             }
             
             jProgressBar1.setVisible(false);
@@ -489,6 +551,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

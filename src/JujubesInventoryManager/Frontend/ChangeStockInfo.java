@@ -476,7 +476,6 @@ public class ChangeStockInfo extends javax.swing.JFrame {
         }
         catch(NumberFormatException e){
             System.out.println(e.getMessage());
-            System.out.println("outside");
             jLabel1.setText(e.getMessage());
         }
     }//GEN-LAST:event_jButton3ActionPerformed

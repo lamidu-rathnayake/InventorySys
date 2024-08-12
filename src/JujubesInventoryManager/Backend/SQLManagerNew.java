@@ -360,7 +360,7 @@ public class SQLManagerNew {
 
 
     // gets the selling price for the sid;
-    protected static double getSellingPrice(int sid) {
+    public static double getSellingPrice(int sid) {
         String query = "select selling_price from stock where stock_id = ?";
         double selling_price = 0.0;
         try {
@@ -390,8 +390,9 @@ public class SQLManagerNew {
             statement.setString(2, customer_contact);
             statement.setString(3, customer_address);
             ResultSet result = statement.executeQuery();
-            while (result.next())
+            while (result.next()){
                 customer_id = result.getInt("customer_id");
+            }
             connection.close();
             return customer_id;
 

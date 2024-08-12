@@ -57,11 +57,12 @@ CREATE TABLE `transaction` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `transaction_items` (
+  `TransactionItemId` int NOT NULL AUTO_INCREMENT,
   `transaction_id` int NOT NULL,
   `stock_id` int NOT NULL,
   `quantity` int DEFAULT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`transaction_id`,`stock_id`),
+  PRIMARY KEY (`TransactionItemId`),
   KEY `stock_id` (`stock_id`),
   CONSTRAINT `transaction_items_ibfk_1` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`transaction_id`),
   CONSTRAINT `transaction_items_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`stock_id`)

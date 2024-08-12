@@ -17,8 +17,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
         initializeTransactionFromdb(transaction_id);
         initializeCustomerFromdb();
         initializeTransactionItemFromdb();   
-        System.out.println("from SqlUpdateManagerTransaction:"); 
-        System.out.println(this.transaction.getDate()); 
     }
     public void initializeTransactionFromdb(int transaction_id){
         //get transaction info <<< transaction table
@@ -34,6 +32,7 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
                     );
                 }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -52,6 +51,7 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
                     );
                 }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }
@@ -77,6 +77,7 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
 
             }
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
 
@@ -89,7 +90,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
     //change date
     public void changeDateOfTransaction(String date){
         this.transaction.setDate(date);
-        System.out.println("date has been changed.");
     }
     //change customer details
     public void changeCustomerInfo(String name, long contact, String address, String email){
@@ -97,7 +97,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
         this.customer.setContact(contact);
         this.customer.setAddress(address);
         this.customer.setEmail(email);
-        System.out.println("customer info have been changed");
     }
     //change stock ids , quantities , amounts
     public void changeStockAndQuantities(List<Integer> stock_ids, List<Integer> quantities, List<Double> amounts){
@@ -107,17 +106,12 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
 
         //assign the new total to the object
         this.transaction.setAmount(calTotalAmount());
-
-        System.out.println("stocks and quantities have been changed");
     }
 
 
     //<<<<3>>>> submit event
     //updates transaction table
     public void updateTransactionTable(){
-        // String query1 = "update transaction " +
-        // "set customer_id = ? " +
-        // "where transaction_id = ? ;";
 
         String query2 = "update transaction " +
         "set date = ? " +
@@ -130,7 +124,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
         // insertData(query1, new Object[]{this.transaction.getCustomer_id(),this.transaction.getTransaction_id()});
         insertData(query2, new Object[]{this.transaction.getDate(),this.transaction.getTransaction_id()});
         insertData(query3, new Object[]{this.transaction.getAmount(),this.transaction.getTransaction_id()});
-        System.out.println("transaction table has been upadeted");
     }
     //updates customer table
     public void updateCustomerTable(){
@@ -155,8 +148,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
         insertData(query2, new Object[]{customer.getContact(),customer.getCustomer_id()});
         insertData(query3, new Object[]{customer.getAddress(),customer.getCustomer_id()});
         insertData(query4, new Object[]{customer.getEmail(),customer.getCustomer_id()});
-        System.out.println("customer table has been updated");
-
     }
     //updates  transaction_items table
     public void updateTransactionItemTable(){
@@ -235,23 +226,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
     public double getSellPrice(int sid){
         return getSellingPrice(sid);
     }
-    // //returns objs when needed
-    // public Transaction getTransactionObj(){
-    //     return this.transaction;
-    // }
-    // public Customer getCustomerObj(){
-    //     return this.customer;
-    // }
-    // public TransactionItem getTransactionItemObj(){
-    //     return this.transactionItem;
-    // }
-
-    // //updating the objects with new values
-    // public void upadateObject(Transaction transaction, Customer customer, TransactionItem transactionItem){
-    //     if(transaction != null)this.transaction = transaction;
-    //     if(customer != null)this.customer = customer;
-    //     if(transactionItem != null)this.transactionItem = transactionItem;
-    // }  
 
     //outside access
     public String getCname(){
