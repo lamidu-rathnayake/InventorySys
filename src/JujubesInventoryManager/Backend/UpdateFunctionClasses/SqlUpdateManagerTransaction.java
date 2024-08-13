@@ -10,8 +10,7 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
     public SqlUpdateManagerTransaction(){
         super();//initializing supper constructor 
     }
-    
-    
+        
     //<<<<1>>>> search event
     public void initializeTransaction(int transaction_id){            
         initializeTransactionFromdb(transaction_id);
@@ -112,7 +111,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
     //<<<<3>>>> submit event
     //updates transaction table
     public void updateTransactionTable(){
-
         String query2 = "update transaction " +
         "set date = ? " +
         "where transaction_id = ? ;";
@@ -127,7 +125,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
     }
     //updates customer table
     public void updateCustomerTable(){
-
         String query1 = "update customer " +
             "set customer_name = ? " +
             "where customer_id = ? ;";
@@ -152,9 +149,7 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
     //updates  transaction_items table
     public void updateTransactionItemTable(){
         // handling the stocks and amounts and updating
-
         String insertTransactionItem = "insert into Transaction_Items(transaction_id,stock_id,quantity,amount) values (?,?,?,?)";
-
         
         // cleaning the current existing stocks 
         deleteExistingStock();
@@ -193,10 +188,8 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
     }
 
 
-
     //sub functionalities
     //==========================
-
     //calculate total_amount
     //must need to be updated with the new stocks and quantities.
     public double calTotalAmount(){

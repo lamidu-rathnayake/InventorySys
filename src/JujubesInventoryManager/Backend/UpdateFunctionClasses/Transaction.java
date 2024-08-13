@@ -16,20 +16,15 @@ public class Transaction {
     public int getTransaction_id(){
         return this.transaction_id;
     }
-    // public void setTransaction_id(int tid){
-    //     this.transaction_id = tid;
-    // }
 
     public int getCustomer_id(){
         return this.customer_id;
     }
-    // public void setCustomer_id(int cid){
-    //     this.customer_id = cid;
-    // }
 
     public String getDate(){
         return this.date;
     }
+
     public void setDate(String date){
         this.date = date;
     }
@@ -37,6 +32,7 @@ public class Transaction {
     public double getAmount(){
         return this.totalAmount;
     }
+    
     public void setAmount(double amount){
         this.totalAmount = amount;
     }

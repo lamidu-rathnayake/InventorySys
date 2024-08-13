@@ -40,7 +40,6 @@ public class SqlUpdateManager extends SQLManagerNew {
         transactionItem = new TransactionItem(tid, sid, quantity, amount);
     }
 
-
     //scenario 1 (HANDLING STOCKS)
     //getting stock for the given stock id or for the last record.
     public void intializeStock(int sid){
@@ -65,12 +64,10 @@ public class SqlUpdateManager extends SQLManagerNew {
         this.stock = stock;
         System.out.println("stock info have been changed..");
     }
-
     //returning stock obj
     public Stock getStockObj(){
         return stock;
     }
-
     //pushing the updated stock infomation into the databse (stock table)
     public void updateStockTable(){
         String updateQuery = "update stock \n" + //
@@ -103,5 +100,6 @@ public class SqlUpdateManager extends SQLManagerNew {
     }
 
     //scenario 2 (HANDLING TRANSACTION)
+    //HAVE HANDLED IN A ANOTHER CLASS CALLED SqlUpdateManagerTransaction
         
 }

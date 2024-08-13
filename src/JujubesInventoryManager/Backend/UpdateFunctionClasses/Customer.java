@@ -18,9 +18,6 @@ public class Customer {
     public int getCustomer_id(){
         return this.customer_id;
     }
-    // public void setCustomer_id(int cid){
-    //     this.customer_id = cid;
-    // }
 
     public String getName(){
         return this.name;
