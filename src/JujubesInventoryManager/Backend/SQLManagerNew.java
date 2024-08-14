@@ -704,17 +704,21 @@ public class SQLManagerNew {
     }
 
     //delete func
-    //delete transaction items
-    // public static void deleteTransactionItems(int tid){
-    //     String query = "DELETE FROM transaction_items WHERE transaction_id = ? ;";
-    //     insertData(query, new Object[] {tid});
-    // }
     //delete transaction (customer include)
-    public static void deleteTransaction(int tid){
+    public static int deleteTransaction(int tid){
+        int flag1 = 0;
+        int flag2 = 0;
         String query1 = "DELETE FROM transaction_items WHERE transaction_id = ? ;";
         String query2 = "DELETE FROM transaction WHERE transaction_id = ? ;";
-        insertData(query1, new Object[] {tid});
-        insertData(query2, new Object[] {tid});
+        flag1 = insertData(query1, new Object[] {tid});
+        if(flag1>=0){
+            flag2 = insertData(query2, new Object[] {tid});
+            if(flag2==0 && flag1==0){
+                return -2;
+            }
+            return 1;
+        }
+        return -1;
     }
     //delete stock
     public static int deleteStock(int sid){
@@ -732,11 +736,12 @@ public class SQLManagerNew {
             } 
             else return -1; 
         }
-        catch(Exception ex){
+        catch(SQLException ex){
             System.out.println(ex.getMessage());
             return -1;
         }
     }
+
 
     //danger zone
     //delete category
@@ -767,7 +772,7 @@ public class SQLManagerNew {
     public static int deleteColor(String color){
         try {
             String lowerColor = color.toLowerCase();
-            String query1 = "Select count(color_id) as count from stock where color_id = ?;";
+            String query1 = "Select count(stock_id) as count from stock where color_id = ?;";
             String query2 = "DELETE FROM color WHERE color_id = ? ;";
             int color_id = getColorId(lowerColor);
             int count = 0;
