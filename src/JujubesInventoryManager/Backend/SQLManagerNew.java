@@ -663,15 +663,15 @@ public class SQLManagerNew {
     }
     // transaction
     public static void doTransaction(String date, String customer_name, String customer_address,
-        String customer_tel_number, List<Integer> stock_ids, List<Integer> quantities) {
-        String queryCustomer = "insert ignore into customer(customer_id, customer_name, customer_contact, address) values (?,?,?,?)";
+        String customer_tel_number, String email, List<Integer> stock_ids, List<Integer> quantities) {
+        String queryCustomer = "insert ignore into customer(customer_id, customer_name, customer_contact, address, email_address) values (?,?,?,?,?)";
         String queryTransaction = "insert into transaction(transaction_id, customer_id, date, total_amount) values (?,?,?,?)";
         String queryTransactionItem = "insert into Transaction_Items(transaction_id,stock_id,quantity,amount) values (?,?,?,?)";
         List<Double> amountOfSelectedStocks = new ArrayList<>();
 
         // inserting customer details
         insertData(queryCustomer,
-                new Object[] { getLastCustomerid() + 1, customer_name, customer_tel_number, customer_address });
+                new Object[] { getLastCustomerid() + 1, customer_name, customer_tel_number, customer_address, email});
 
         // calculating the total amount
         int i = 0;
@@ -754,7 +754,6 @@ public class SQLManagerNew {
     
             int count = 0;
             ResultSet result = getResult(query1, new Object[]{category_id});
-    
             while(result.next()) count = result.getInt("count"); 
     
             if (count == 0) {
@@ -795,7 +794,7 @@ public class SQLManagerNew {
             String lowerSize = size.toLowerCase();
             String query1 = "Select count(size_id) as count from stock where size_id = ?;";
             String query2 = "DELETE FROM size WHERE size_id = ? ;";
-            int size_id = getColorId(lowerSize);
+            int size_id = getSizeId(lowerSize);
             int count = 0;
             ResultSet result = getResult(query1, new Object[]{size_id});
             while (result.next()) count = result.getInt("count");

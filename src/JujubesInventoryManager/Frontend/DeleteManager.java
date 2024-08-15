@@ -5,8 +5,10 @@
 package JujubesInventoryManager.Frontend;
 
 import JujubesInventoryManager.Backend.SQLManagerNew;
+import java.awt.Image;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -19,6 +21,9 @@ public class DeleteManager extends javax.swing.JFrame {
      */
     public DeleteManager() {
         initComponents();
+        Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
+        setIconImage(icon);
+        
         refresh();
     }
 
@@ -41,13 +46,11 @@ public class DeleteManager extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -60,19 +63,17 @@ public class DeleteManager extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
         jCheckBox1 = new javax.swing.JCheckBox();
         jCheckBox2 = new javax.swing.JCheckBox();
         jCheckBox3 = new javax.swing.JCheckBox();
         jButton11 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Delete Manager");
+        getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setBackground(new java.awt.Color(34, 40, 49));
         jPanel1.setLayout(new java.awt.GridBagLayout());
@@ -107,8 +108,6 @@ public class DeleteManager extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Refresh");
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -116,10 +115,7 @@ public class DeleteManager extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
+                    .addComponent(jButton1)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel2)
                         .addGroup(jPanel5Layout.createSequentialGroup()
@@ -138,9 +134,7 @@ public class DeleteManager extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                .addComponent(jButton1)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -165,8 +159,6 @@ public class DeleteManager extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Refresh");
-
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -179,15 +171,12 @@ public class DeleteManager extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton4))
+                            .addComponent(jButton3)
                             .addGroup(jPanel6Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 34, Short.MAX_VALUE))))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -199,9 +188,7 @@ public class DeleteManager extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4))
+                .addComponent(jButton3)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -265,8 +252,6 @@ public class DeleteManager extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("Refresh");
-
         jButton7.setText("Delete");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,16 +259,12 @@ public class DeleteManager extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setText("Refresh");
-
         jButton9.setText("Delete");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
             }
         });
-
-        jButton10.setText("Refresh");
 
         jCheckBox1.setBackground(new java.awt.Color(34, 40, 49));
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
@@ -334,21 +315,12 @@ public class DeleteManager extends javax.swing.JFrame {
                                 .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jTextField4)
                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton6))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton8))
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jTextField5)
                                 .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton10))))
+                            .addComponent(jButton5)
+                            .addComponent(jButton7)
+                            .addComponent(jButton9)))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jLabel6)))
@@ -368,9 +340,7 @@ public class DeleteManager extends javax.swing.JFrame {
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                .addComponent(jButton5)
                 .addGap(20, 20, 20)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -380,9 +350,7 @@ public class DeleteManager extends javax.swing.JFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
-                    .addComponent(jButton8))
+                .addComponent(jButton7)
                 .addGap(20, 20, 20)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -392,9 +360,7 @@ public class DeleteManager extends javax.swing.JFrame {
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBox3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton9)
-                    .addComponent(jButton10))
+                .addComponent(jButton9)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -454,7 +420,9 @@ public class DeleteManager extends javax.swing.JFrame {
         int flag = 0;
         try{
             flag = SQLManagerNew.deleteStock(Integer.parseInt(jTextField1.getText()));
-            if (flag == 1)jLabel10.setText("Stock was deleted");
+            if (flag == 1){
+                jLabel10.setText("Stock was deleted");
+            }
             else if (flag == -1)jLabel10.setText("Stock was not deleted");
             else jLabel10.setText("undefine");
         }
@@ -471,7 +439,6 @@ public class DeleteManager extends javax.swing.JFrame {
             if (flag == 1)jLabel10.setText("Transaction was deleted");
             if (flag == -2)jLabel10.setText("Transaction doent exist");
             if (flag == -1)jLabel10.setText("undefine");
-            
         }
         catch(Exception e){
             jLabel10.setText("error");
@@ -527,6 +494,7 @@ public class DeleteManager extends javax.swing.JFrame {
         }
         if(flag == 1){
             jLabel10.setText("Category was deleted");
+            jTextField3.setText("");
             loadCategoryDropDown();
         } 
         else if(flag == -1)jLabel10.setText("Category was not deleted");
@@ -543,6 +511,7 @@ public class DeleteManager extends javax.swing.JFrame {
         }
         if(flag == 1){
             jLabel10.setText("Color was deleted");
+            jTextField4.setText("");
             loadColorDropDown();
         }
         else if(flag == -1)jLabel10.setText("Color was not deleted");
@@ -559,18 +528,16 @@ public class DeleteManager extends javax.swing.JFrame {
         }
         if(flag == 1){
             jLabel10.setText("Size was deleted");
+            jTextField5.setText("");
             loadSizeDropDown();
         }
         else if(flag == -1)jLabel10.setText("Size was not deleted");
         
     }//GEN-LAST:event_jButton9ActionPerformed
 
-    
-    
-    
+        
     private void loadCategoryDropDown(){
         List<String> categoryArray = SQLManagerNew.getCategoryNames();
-        System.out.println(categoryArray);
         if(!categoryArray.isEmpty()){
             for(String category : categoryArray){
                 if(((DefaultComboBoxModel<String>)jComboBox1.getModel()).getIndexOf(category) == -1)jComboBox1.addItem(category);
@@ -580,7 +547,6 @@ public class DeleteManager extends javax.swing.JFrame {
     
     private void loadColorDropDown(){
         List<String> colorArray = SQLManagerNew.getColors();
-        System.out.println(colorArray);
         if(!colorArray.isEmpty()){
             for(String color : colorArray){
                 if(((DefaultComboBoxModel<String>)jComboBox2.getModel()).getIndexOf(color) == -1)jComboBox2.addItem(color);
@@ -590,7 +556,6 @@ public class DeleteManager extends javax.swing.JFrame {
        
     private void loadSizeDropDown(){
         List<String> sizeArray = SQLManagerNew.getSizes();
-        System.out.println(sizeArray);
         if(!sizeArray.isEmpty()){
             for(String size : sizeArray){
                 if(((DefaultComboBoxModel<String>)jComboBox3.getModel()).getIndexOf(size) == -1)jComboBox3.addItem(size);
@@ -619,55 +584,14 @@ public class DeleteManager extends javax.swing.JFrame {
         jTextField5.setEnabled(false);
         jComboBox3.setEnabled(true);  
     }
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DeleteManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DeleteManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DeleteManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DeleteManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DeleteManager().setVisible(true);
-            }
-        });
-    }
-
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;

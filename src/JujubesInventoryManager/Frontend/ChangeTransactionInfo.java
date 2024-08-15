@@ -6,10 +6,13 @@ package JujubesInventoryManager.Frontend;
 import JujubesInventoryManager.Backend.SQLManagerNew;
 import JujubesInventoryManager.Backend.UpdateFunctionClasses.SqlUpdateManagerTransaction;
 import java.awt.Component;
+import java.awt.Image;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -24,11 +27,15 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
     List<Integer> stockIds;
     List<Integer> quantities;
     List<Double> amounts;
+    List<Integer> outOfStock;//for calculating availability for adding to the cart 
     /**
      * Creates new form changeTransactionInfo
      */
     public ChangeTransactionInfo() {
         initComponents();
+        Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
+        setIconImage(icon);
+        
         updateManager = new SqlUpdateManagerTransaction();
         
         //setting the background color and border color for the cart table
@@ -131,6 +138,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Change Transaction Infomation");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel4.setBackground(new java.awt.Color(41, 49, 60));
@@ -138,7 +146,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("change transaction info");
+        jLabel13.setText("Change transaction info");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -403,7 +411,7 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(20, 20, 20)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 258, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 519, Short.MAX_VALUE))
                 .addGap(0, 20, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
@@ -642,17 +650,14 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // add stock and quantity
         try{
-            double amount = updateManager.getSellPrice(Integer.parseInt(jTextField4.getText()))*Integer.parseInt(jTextField5.getText());
-            if (amount != 0.0){
+            if(validateQuantity()==1){
+                double amount = updateManager.getSellPrice(Integer.parseInt(jTextField4.getText()))*Integer.parseInt(jTextField5.getText());
                 stockIds.add(Integer.parseInt(jTextField4.getText()));
                 quantities.add(Integer.parseInt(jTextField5.getText()));
                 amounts.add(amount);
                 jLabel8.setText("");
                 updateTable();
                 initializeLabels();
-            }
-            else {
-                jLabel8.setText("stock id doesn't exist");
             }
         }
         catch(NumberFormatException ex){
@@ -903,6 +908,58 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
             jLabel8.setText("Invalid action before initialization");
         }
     }
+    
+    
+    
+    private int validateQuantity() {
+        try {
+            int result;
+            String sid = jTextField4.getText();
+            boolean sidStatus = sid.isEmpty();
+
+            if (!sidStatus) {  
+                int stockId = Integer.parseInt(sid);
+                int quantity = Integer.parseInt(jTextField5.getText());
+                
+                //cheking if the user has already reached the available items in inventory
+                int index = 0;
+                int items = 0;
+                items += quantity;
+                for(int id : stockIds){
+                    if(id == stockId){
+                        items += quantities.get(index);
+                        //to be continoue
+                    } 
+                    index++;
+                }
+                result = SQLManagerNew.isItemAvailable(stockId, quantity);
+                
+                switch (result) {
+                    case 1:
+                        jLabel8.setText("");
+                        return result;
+                    case -1:
+                        jLabel8.setText("Out of limit");
+                        return -1;
+                    case -2:
+                        jLabel8.setText("Stock id doesn't exist");
+                        return -1;
+                    default:
+                        return -1;
+                }
+            } 
+            else {
+                jLabel8.setText("Enter the stock ID");
+                return -1;
+            }
+        } 
+        catch (NumberFormatException exc) {
+            System.out.println(exc.getMessage());
+            jLabel8.setText("Invalid stock ID or quantity"); //for invalid number
+            return -1;
+        }
+}
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

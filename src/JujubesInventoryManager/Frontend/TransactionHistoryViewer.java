@@ -7,6 +7,7 @@ package JujubesInventoryManager.Frontend;
 import JujubesInventoryManager.Backend.SQLManagerNew;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -31,6 +33,9 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
      */
     public TransactionHistoryViewer() {
         initComponents();
+        Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
+        setIconImage(icon);
+        
         jScrollPane1.getViewport().setBackground(new java.awt.Color(34, 40, 49));
         jScrollPane1.setBorder(null);
         jScrollPane1.getViewport().setBorder(null);
@@ -82,6 +87,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Transaction History");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setBackground(new java.awt.Color(49, 54, 63));
@@ -181,6 +187,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setBackground(new java.awt.Color(34, 40, 49));
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -413,17 +420,19 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         TableColumn column1 = jTable1.getColumnModel().getColumn(1);
         TableColumn column6 = jTable1.getColumnModel().getColumn(6);
         TableColumn column7 = jTable1.getColumnModel().getColumn(7);
+        TableColumn column8 = jTable1.getColumnModel().getColumn(8);
         TableColumn column9 = jTable1.getColumnModel().getColumn(9);
         TableColumn column10 = jTable1.getColumnModel().getColumn(10);
         TableColumn column11 = jTable1.getColumnModel().getColumn(11);
 
         column0.setPreferredWidth(20);
-        column1.setPreferredWidth(40);
+        column1.setPreferredWidth(20);
         column6.setPreferredWidth(20);
         column7.setPreferredWidth(20);
+        column8.setPreferredWidth(20);
         column9.setPreferredWidth(20);
-        column10.setPreferredWidth(20);
-        column11.setPreferredWidth(20);
+        column10.setPreferredWidth(30);
+        column11.setPreferredWidth(15);
         
         jProgressBar1.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -471,19 +480,23 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
 
                 TableColumn column0 = jTable1.getColumnModel().getColumn(0);
                 TableColumn column1 = jTable1.getColumnModel().getColumn(1);
+                TableColumn column3 = jTable1.getColumnModel().getColumn(3);
                 TableColumn column6 = jTable1.getColumnModel().getColumn(6);
                 TableColumn column7 = jTable1.getColumnModel().getColumn(7);
+                TableColumn column8 = jTable1.getColumnModel().getColumn(8);
                 TableColumn column9 = jTable1.getColumnModel().getColumn(9);
                 TableColumn column10 = jTable1.getColumnModel().getColumn(10);
                 TableColumn column11 = jTable1.getColumnModel().getColumn(11);
 
                 column0.setPreferredWidth(20);
-                column1.setPreferredWidth(40);
+                column1.setPreferredWidth(50);
+                column3.setPreferredWidth(50);
                 column6.setPreferredWidth(20);
                 column7.setPreferredWidth(20);
+                column8.setPreferredWidth(20);
                 column9.setPreferredWidth(20);
-                column10.setPreferredWidth(20);
-                column11.setPreferredWidth(20);
+                column10.setPreferredWidth(30);
+                column11.setPreferredWidth(10);
 
 
                 int progressU = 90/rows.size();

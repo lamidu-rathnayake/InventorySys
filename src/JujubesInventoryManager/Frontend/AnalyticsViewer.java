@@ -6,12 +6,14 @@ package JujubesInventoryManager.Frontend;
 
 import JujubesInventoryManager.Backend.SQLStatisticsManagerNew;
 import java.awt.Component;
+import java.awt.Image;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -23,6 +25,8 @@ public class AnalyticsViewer extends javax.swing.JFrame {
 
     public AnalyticsViewer()   {
         initComponents();
+        Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
+        setIconImage(icon);
         
         jScrollPane1.getViewport().setBackground(new java.awt.Color(34, 40, 49));
         jScrollPane1.setBorder(null);
@@ -65,6 +69,7 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Analytics Viewer");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setBackground(new java.awt.Color(49, 54, 63));
@@ -122,7 +127,7 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(49, 54, 63));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(238, 238, 238));
-        jLabel1.setText("Analytics");
+        jLabel1.setText("Analytics viewer");
 
         jLabel2.setBackground(new java.awt.Color(49, 54, 63));
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -216,7 +221,6 @@ public class AnalyticsViewer extends javax.swing.JFrame {
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -242,7 +246,8 @@ public class AnalyticsViewer extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addComponent(jCheckBox1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(26, 26, 26)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE))
         );

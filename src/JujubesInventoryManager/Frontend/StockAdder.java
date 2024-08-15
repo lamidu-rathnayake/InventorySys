@@ -1,14 +1,19 @@
  package JujubesInventoryManager.Frontend;
 import JujubesInventoryManager.Backend.SQLManagerNew;
+import java.awt.Image;
 import java.util.List;
 import javax.swing.JTextField;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 
 public class StockAdder extends javax.swing.JFrame {  
     public StockAdder() {
         initComponents();
+        Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
+        setIconImage(icon);
+        
         jTextField4.setEnabled(false);
         jTextField5.setEnabled(false);
         refresh();
@@ -50,7 +55,7 @@ public class StockAdder extends javax.swing.JFrame {
         jLabel5.setText("jLabel5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Add Stock");
+        setTitle("Stock Adder");
         setBackground(new java.awt.Color(0, 0, 68));
         setForeground(new java.awt.Color(0, 0, 68));
         setIconImages(null);
