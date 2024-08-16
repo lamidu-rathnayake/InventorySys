@@ -914,25 +914,26 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
     private int validateQuantity() {
         try {
             int result;
-            String sid = jTextField4.getText();
-            boolean sidStatus = sid.isEmpty();
+            String stockIdStr = jTextField4.getText();
+            boolean sidStatus = stockIdStr.isEmpty();
 
             if (!sidStatus) {  
-                int stockId = Integer.parseInt(sid);
+                int stockId = Integer.parseInt(stockIdStr);
                 int quantity = Integer.parseInt(jTextField5.getText());
                 
                 //cheking if the user has already reached the available items in inventory
+                int totalStockQuantity = 0;
+                totalStockQuantity += quantity;
+                
+                // adding the quantities that already added to the card with the same stock id
                 int index = 0;
-                int items = 0;
-                items += quantity;
-                for(int id : stockIds){
-                    if(id == stockId){
-                        items += quantities.get(index);
-                        //to be continoue
+                for(int sid : stockIds){
+                    if(sid == stockId){
+                        totalStockQuantity += quantities.get(index);
                     } 
                     index++;
                 }
-                result = SQLManagerNew.isItemAvailable(stockId, quantity);
+                result = SQLManagerNew.isItemAvailable(stockId, totalStockQuantity);
                 
                 switch (result) {
                     case 1:

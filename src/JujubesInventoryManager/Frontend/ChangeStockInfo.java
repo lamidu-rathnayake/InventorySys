@@ -6,6 +6,8 @@ package JujubesInventoryManager.Frontend;
 import JujubesInventoryManager.Backend.SQLManagerNew;
 import JujubesInventoryManager.Backend.UpdateFunctionClasses.SqlUpdateManager;
 import JujubesInventoryManager.Backend.UpdateFunctionClasses.Stock;
+
+import java.awt.Color;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
@@ -18,6 +20,7 @@ import javax.swing.ImageIcon;
 public class ChangeStockInfo extends javax.swing.JFrame {
     private SqlUpdateManager sqlManager;
     Stock stock;
+    String lastSid;
     /**
      * Creates new form ChangeRecords
      */
@@ -476,7 +479,7 @@ public class ChangeStockInfo extends javax.swing.JFrame {
             
             //update the stock in Stock class
             sqlManager.changeStockInfo(stock);
-            
+            jLabel1.setForeground(Color.GREEN);
             jLabel1.setText("stock was updated!");
         }
         catch(NumberFormatException e){
@@ -489,6 +492,7 @@ public class ChangeStockInfo extends javax.swing.JFrame {
         // SUBMIT button event (updating stock table)
         sqlManager.updateStockTable();
         refresh();
+        jLabel1.setForeground(Color.GREEN);
         jLabel1.setText("stock was submitted!");
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -530,15 +534,19 @@ public class ChangeStockInfo extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // RESET button event
-        refresh();  
+        refresh();
+        lastSid="";  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // CANCEL button event
         refresh();
+        initializeStock(lastSid);
+
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void initializeStock(String sid){
+        lastSid = sid;
         try{
             jLabel1.setText("");
             int stock_id = Integer.parseInt(sid);
@@ -563,6 +571,8 @@ public class ChangeStockInfo extends javax.swing.JFrame {
         catch(NumberFormatException e){
             System.out.println(e.getMessage());
             jTextField1.setText("");
+            jLabel1.setForeground(getForeground());
+            jLabel1.setForeground(Color.RED);
             jLabel1.setText("invalid stock id..");
         }
     }

@@ -779,7 +779,22 @@ public class SellingManager extends javax.swing.JFrame {
 
             if (!sidStatus) {  
                 int stockId = Integer.parseInt(sid);
-                result = SQLManagerNew.isItemAvailable(stockId, quantity);
+                
+                //cheking if the user has already reached the available items in inventory
+                int totalStockQuantity = 0;
+                totalStockQuantity += quantity;
+                
+                // adding the quantities that already added to the card with the same stock id
+                int index = 0;
+                for(int[] sidAndQuantity : selectedStockIdsAndQuantities){
+                    if(sidAndQuantity[0] == stockId){
+                        totalStockQuantity += sidAndQuantity[1];
+                    } 
+                    index++;
+                }
+                
+                result = SQLManagerNew.isItemAvailable(stockId, totalStockQuantity);
+
                 switch (result) {
                     case 1:
                         jLabel12.setText("");
