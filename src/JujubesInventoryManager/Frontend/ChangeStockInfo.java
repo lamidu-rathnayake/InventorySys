@@ -641,9 +641,15 @@ public class ChangeStockInfo extends javax.swing.JFrame {
         
         jLabel1.setText("");
         
-        jComboBox1.setSelectedIndex(0);
-        jComboBox2.setSelectedIndex(0);
-        jComboBox3.setSelectedIndex(0); 
+        try{
+            jComboBox1.setSelectedIndex(0);
+            jComboBox2.setSelectedIndex(0);
+            jComboBox3.setSelectedIndex(0);
+        }
+        catch(IllegalArgumentException exc){
+            System.out.println(exc.getMessage());
+        }
+        
         jComboBox1.setEditable(true);
         jComboBox2.setEditable(true);
         jComboBox3.setEditable(true);

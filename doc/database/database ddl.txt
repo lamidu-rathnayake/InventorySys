@@ -1,5 +1,5 @@
-CREATE DATABASE new_cloth_shop_test;
-USE new_cloth_shop_test;
+CREATE DATABASE jujubes_database;
+USE jujubes_database;
 
 CREATE TABLE `category` (
   `category_id` int NOT NULL,

@@ -574,9 +574,14 @@ public class DeleteManager extends javax.swing.JFrame {
         jTextField4.setText("");
         jTextField5.setText("");
         jLabel10.setText("");
-        jComboBox1.setSelectedIndex(0);
-        jComboBox2.setSelectedIndex(0);
-        jComboBox3.setSelectedIndex(0);
+        try{
+            jComboBox1.setSelectedIndex(0);
+            jComboBox2.setSelectedIndex(0);
+            jComboBox3.setSelectedIndex(0);
+        }
+        catch(IllegalArgumentException exc){
+            System.out.println(exc.getMessage());
+        }
         jTextField3.setEnabled(false);
         jComboBox1.setEnabled(true);
         jTextField4.setEnabled(false);
