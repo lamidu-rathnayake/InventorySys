@@ -1,5 +1,6 @@
  package JujubesInventoryManager.Frontend;
 import JujubesInventoryManager.Backend.SQLManagerNew;
+import java.awt.Color;
 import java.awt.Image;
 import java.util.List;
 import javax.swing.JTextField;
@@ -51,6 +52,7 @@ public class StockAdder extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jCheckBox3 = new javax.swing.JCheckBox();
         jTextField6 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
 
         jLabel5.setText("jLabel5");
 
@@ -230,6 +232,10 @@ public class StockAdder extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(0, 255, 0));
+        jLabel14.setText(" ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -239,34 +245,37 @@ public class StockAdder extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(108, 108, 108)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7))
-                        .addGap(79, 79, 79)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox3)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jCheckBox1))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(123, 123, 123)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(79, 79, 79)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(30, 30, 30)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jCheckBox3)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jCheckBox2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jCheckBox1))
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jButton1)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jButton2))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(607, 607, 607)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -338,8 +347,9 @@ public class StockAdder extends javax.swing.JFrame {
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addContainerGap(95, Short.MAX_VALUE))
+                    .addComponent(jButton2)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         jTextField6.setEnabled(false);
@@ -412,7 +422,8 @@ public class StockAdder extends javax.swing.JFrame {
             }
             else {
                 jTextField5.setBackground(new java.awt.Color(255,0,0));
-                System.out.println("empty!");
+                jLabel14.setForeground(Color.RED);
+                jLabel14.setText("Field is empty!");
                 flag = -1;
             }
         }
@@ -427,7 +438,8 @@ public class StockAdder extends javax.swing.JFrame {
             }
             else {
                 jTextField4.setBackground(new java.awt.Color(255,0,0));
-                System.out.println("empty!");
+                jLabel14.setForeground(Color.RED);
+                jLabel14.setText("Field is empty!");
                 flag = -1;
             }
         }
@@ -442,7 +454,8 @@ public class StockAdder extends javax.swing.JFrame {
             }
             else {
                 jTextField6.setBackground(new java.awt.Color(255,0,0));
-                System.out.println("empty!");
+                jLabel14.setForeground(Color.RED);
+                jLabel14.setText("Field is empty!");
                 flag = -1;
             }
         }
@@ -455,6 +468,8 @@ public class StockAdder extends javax.swing.JFrame {
 
                 SQLManagerNew.addNewStock(getWorkingSid(),category,size,color,quantity,buyingPrice,sellingPrice,this.getDate());
                 this.refresh();
+                jLabel14.setForeground(Color.GREEN);
+                jLabel14.setText("Stock was submitted");
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -580,6 +595,7 @@ public class StockAdder extends javax.swing.JFrame {
         jLabel8.setText("");
         jLabel9.setText("");
         jLabel10.setText("");
+        jLabel14.setText("");
         jTextField4.setBackground(new java.awt.Color(34,40,49));
         jTextField5.setBackground(new java.awt.Color(34,40,49));
     }
@@ -599,6 +615,7 @@ public class StockAdder extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
