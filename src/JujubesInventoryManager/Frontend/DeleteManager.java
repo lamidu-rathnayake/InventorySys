@@ -535,32 +535,44 @@ public class DeleteManager extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton9ActionPerformed
 
-        
-    private void loadCategoryDropDown(){
+    // 2024-08-18 updated by Lamidu Rathnayake
+    private void loadCategoryDropDown() {
         List<String> categoryArray = SQLManagerNew.getCategoryNames();
-        if(!categoryArray.isEmpty()){
-            for(String category : categoryArray){
-                if(((DefaultComboBoxModel<String>)jComboBox1.getModel()).getIndexOf(category) == -1)jComboBox1.addItem(category);
+        DefaultComboBoxModel<String> newModel = new DefaultComboBoxModel<>();
+        
+        if (!categoryArray.isEmpty()) {
+            for (String category : categoryArray) {
+                newModel.addElement(category);
             }
         }
+        
+        jComboBox1.setModel(newModel);
     }
     
     private void loadColorDropDown(){
         List<String> colorArray = SQLManagerNew.getColors();
+        DefaultComboBoxModel<String> newModel = new DefaultComboBoxModel<>();
+        
         if(!colorArray.isEmpty()){
             for(String color : colorArray){
-                if(((DefaultComboBoxModel<String>)jComboBox2.getModel()).getIndexOf(color) == -1)jComboBox2.addItem(color);
+                newModel.addElement(color);
             }
         }
+
+        jComboBox2.setModel(newModel);
     }
        
     private void loadSizeDropDown(){
         List<String> sizeArray = SQLManagerNew.getSizes();
+        DefaultComboBoxModel<String> newModel = new DefaultComboBoxModel<>();
+        
         if(!sizeArray.isEmpty()){
             for(String size : sizeArray){
-                if(((DefaultComboBoxModel<String>)jComboBox3.getModel()).getIndexOf(size) == -1)jComboBox3.addItem(size);
+                newModel.addElement(size);
             }
         }
+
+        jComboBox3.setModel(newModel);
     }
     
     

@@ -8,12 +8,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 
 public class StockAdder extends javax.swing.JFrame {  
     public StockAdder() {
         initComponents();
-        Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
-        setIconImage(icon);
+        loadIcon();
         
         jTextField4.setEnabled(false);
         jTextField5.setEnabled(false);
@@ -367,27 +367,11 @@ public class StockAdder extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField5KeyPressed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
-        if(jCheckBox2.isSelected()){
-            jComboBox1.setEnabled(false);
-            jTextField5.setEnabled(true);
-        }
-        else{
-            jComboBox1.setEnabled(true);
-            jTextField5.setEnabled(false);
-            jTextField5.setBackground(new java.awt.Color(34,40,49));
-        }
+        toggleComponentState(jComboBox1, jTextField5, jCheckBox2.isSelected());
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        if(jCheckBox1.isSelected()){
-            jComboBox3.setEnabled(false);
-            jTextField4.setEnabled(true);
-        }
-        else{
-            jComboBox3.setEnabled(true);
-            jTextField4.setEnabled(false);
-            jTextField4.setBackground(new java.awt.Color(34,40,49));
-        }
+        toggleComponentState(jComboBox3, jTextField4, jCheckBox1.isSelected());
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -548,6 +532,26 @@ public class StockAdder extends javax.swing.JFrame {
 
 
     //functions
+    //2024-08-18
+    private void toggleComponentState(JComboBox comboBox, JTextField textField, boolean isNewItem) {
+        comboBox.setEnabled(!isNewItem);
+        textField.setEnabled(isNewItem);
+        if (!isNewItem) {
+            textField.setBackground(new java.awt.Color(34, 40, 49));
+        }
+    }
+
+    private void loadIcon() {
+        try {
+            Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();
+            setIconImage(icon);
+        } catch (Exception e) {
+            System.err.println("Error loading icon: " + e.getMessage());
+            // Optionally, you can set a default icon or take other appropriate action
+            // For example: setIconImage(defaultIcon);
+        }
+    }
+
     public static String getDate(){
         LocalDate date = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

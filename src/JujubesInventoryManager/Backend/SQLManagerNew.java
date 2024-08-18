@@ -14,7 +14,7 @@ import javax.naming.spi.DirStateFactory.Result;
 
 public class SQLManagerNew {
     // Defining the essential attributes for sql connection
-    protected static final String url = "jdbc:mysql://localhost:3306/jujubes_database";
+    protected static final String url = "jdbc:mysql://localhost:3306/new_cloth_shop_test";
     protected static final String userName = "root";
     protected static final String password = "lamidu@123";
     protected static Connection connection;

@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -23,48 +24,15 @@ import javax.swing.table.JTableHeader;
 public class SellingManager extends javax.swing.JFrame {
     private static List<int[]> selectedStockIdsAndQuantities = new ArrayList<>();
     double totalAmount;
+    
     public SellingManager() {
         initComponents();
-        Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
-        setIconImage(icon);
-
-        //setting the background color and border colors for availability table
-        jScrollPane2.getViewport().setBackground(new java.awt.Color(34, 40, 49));
-        jScrollPane2.setBorder(null);
-        jScrollPane2.getViewport().setBorder(null);
-        JTableHeader header = jTable1.getTableHeader();
-        header.setDefaultRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                setBackground(new java.awt.Color(118,171,174)); // Set your desired header background color
-                return this;
-            }
-        });
-        // Create a border for the table
-        Border border1 = BorderFactory.createLineBorder(new java.awt.Color(118,171,174));
-        // Set the border for the table
-        jTable1.setBorder(border1);
+        loadIcon();
         
-
-        //setting the background color and border color for the cart table
-        jScrollPane1.getViewport().setBackground(new java.awt.Color(34, 40, 49));
-        jScrollPane1.setBorder(null);
-        jScrollPane1.getViewport().setBorder(null);
-        JTableHeader header1 = jTable2.getTableHeader();
-        header1.setDefaultRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                setBackground(new java.awt.Color(118,171,174)); // Set your desired header background color
-                return this;
-            }
-        });
-        // Create a border for the table
-        Border border2 = BorderFactory.createLineBorder(new java.awt.Color(118,171,174));
-        // Set the border for the table
-        jTable2.setBorder(border2);
-
+        //handled null pointer exception
+        styleTableIfNotNull(jTable1, jScrollPane2);
+        styleTableIfNotNull(jTable2, jScrollPane1);
+        
         //initital reset..
         this.Refresh();
     }
@@ -589,6 +557,12 @@ public class SellingManager extends javax.swing.JFrame {
             jLabel12.setForeground(Color.GREEN);
             jLabel12.setText("Submited");
         }
+        else if(selectedStockIdsAndQuantities.isEmpty()){
+            jLabel12.setForeground(Color.RED);
+            jLabel12.setText("wanted fields are empty");
+            jLabel10.setText("!");
+            jLabel11.setText("!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
@@ -742,7 +716,14 @@ public class SellingManager extends javax.swing.JFrame {
             return true;
         }
     }
-    private int validateQuantity(int quantity, JLabel lobj) {
+/**
+     * Validates the quantity of a stock item and checks if it is available in the inventory.
+     *
+     * @param quantity The quantity to be validated.
+     * @param lobj The label object to display error messages.
+     * @return 1 if the quantity is available, -1 if the quantity is out of limit or the stock ID is invalid, -2 if the stock ID does not exist.
+     */
+        private int validateQuantity(int quantity, JLabel lobj) {
         try {
             int result;
             String sid = jTextField4.getText();
@@ -838,6 +819,47 @@ public class SellingManager extends javax.swing.JFrame {
     private void loadWorkingTid(){
         jLabel13.setText(String.valueOf(SQLManagerNew.getLastTid()+1));
     }  
+
+    //2024.08.18 edited by Lamidu Rathnayake
+
+    private void styleTableIfNotNull(JTable table, JScrollPane scrollPane) {
+        if (table != null && scrollPane != null) {
+            styleTable(table, scrollPane);
+        } else {
+            System.err.println("Table or ScrollPane is null");
+        }
+    }
+
+    private void styleTable(JTable table, JScrollPane scrollPane) {
+        scrollPane.getViewport().setBackground(new java.awt.Color(34, 40, 49));
+        scrollPane.setBorder(null);
+        scrollPane.getViewport().setBorder(null);
+        
+        JTableHeader header = table.getTableHeader();
+        header.setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                setBackground(new java.awt.Color(118,171,174));
+                return this;
+            }
+        });
+        
+        Border border = BorderFactory.createLineBorder(new java.awt.Color(118,171,174));
+        table.setBorder(border);
+    }
+
+    private void loadIcon() {
+        try {
+            Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();
+            setIconImage(icon);
+        } catch (Exception e) {
+            System.err.println("Error loading icon: " + e.getMessage());
+            // Optionally, you can set a default icon or take other appropriate action
+            // For example: setIconImage(defaultIcon);
+        }
+    }
+
     public void Refresh(){
         selectedStockIdsAndQuantities.clear();
         this.loadTable();

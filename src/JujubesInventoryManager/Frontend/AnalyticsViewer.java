@@ -330,6 +330,13 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         jTextField4.setText("");
         jTextField5.setText("");
         jTextField6.setText("");
+
+        jTextField1.setBackground(new java.awt.Color(34,40,49));
+        jTextField2.setBackground(new java.awt.Color(34,40,49));
+        jTextField3.setBackground(new java.awt.Color(34,40,49));
+        jTextField4.setBackground(new java.awt.Color(34,40,49));
+        jTextField5.setBackground(new java.awt.Color(34,40,49));
+        jTextField6.setBackground(new java.awt.Color(34,40,49));
         
         Boolean flag = jCheckBox1.isSelected();
         jTextField1.setEnabled(!flag);
@@ -339,6 +346,8 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         jTextField5.setEnabled(!flag);
         jTextField6.setEnabled(!flag);
         jCheckBox2.setSelected(!flag);
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed

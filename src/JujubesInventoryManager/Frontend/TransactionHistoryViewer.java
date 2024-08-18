@@ -8,11 +8,9 @@ import JujubesInventoryManager.Backend.SQLManagerNew;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -33,12 +31,9 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
      */
     public TransactionHistoryViewer() {
         initComponents();
-        Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
-        setIconImage(icon);
-        
-        jScrollPane1.getViewport().setBackground(new java.awt.Color(34, 40, 49));
-        jScrollPane1.setBorder(null);
-        jScrollPane1.getViewport().setBorder(null);
+        loadIcon();
+        initializeTable();
+
         JTableHeader header = jTable1.getTableHeader();
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -346,6 +341,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                             jLabel4.setText("");
                         }
                         else {
+                            jLabel4.setForeground(Color.RED);
                             jLabel4.setText("No record exist");
                             jProgressBar1.setVisible(false);
                         }
@@ -370,6 +366,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                         jLabel4.setText("");
                     }
                     else {
+                        jLabel4.setForeground(Color.RED);
                         jLabel4.setText("No record exist");
                         jProgressBar1.setVisible(false);
                     }
@@ -459,6 +456,26 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
             return -1;
         }
     }
+
+// 2024-08-18 updated by Lamidu Rathnayake
+    private void initializeTable() {
+        jScrollPane1.getViewport().setBackground(new java.awt.Color(34, 40, 49));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.getViewport().setBorder(null);
+        // ... rest of table initialization
+    }
+
+    private void loadIcon() {
+        try {
+            Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();
+            setIconImage(icon);
+        } catch (Exception e) {
+            System.err.println("Error loading icon: " + e.getMessage());
+            // Optionally, you can set a default icon or take other appropriate action
+            // For example: setIconImage(defaultIcon);
+        }
+    }
+
     private void loadTable(List<Object[]> rows) {
         Thread newThread = new Thread(()->{
             try{
