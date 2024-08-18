@@ -458,29 +458,38 @@ public class ChangeStockInfo extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         //UPDATE button event (changing the stock info)
         try{
-            //validating the user inputs
-            validateIntegerInputs();
             
-            stock.setQuantity(Integer.parseInt(jTextField10.getText()));
-            stock.setBuying_Price(Double.parseDouble(jTextField5.getText()));
-            stock.setSelling_price(Double.parseDouble(jTextField6.getText()));
+            if (stock!=null) {
+                //validating the user inputs
+                validateIntegerInputs();
 
-            //stock.setStockId(); 
-            if(jCheckBox1.isSelected()) stock.setCategory(jTextField2.getText());
-            else stock.setCategory((String)jComboBox1.getSelectedItem());
-            if(jCheckBox2.isSelected()) stock.setColor(jTextField3.getText());
-            else stock.setColor((String)jComboBox2.getSelectedItem());
-            if(jCheckBox3.isSelected()) stock.setSize(jTextField4.getText());
-            else stock.setSize((String)jComboBox3.getSelectedItem());
+                stock.setQuantity(Integer.parseInt(jTextField10.getText()));
+                stock.setBuying_Price(Double.parseDouble(jTextField5.getText()));
+                stock.setSelling_price(Double.parseDouble(jTextField6.getText()));
+                
+                //stock.setStockId(); 
+                if(jCheckBox1.isSelected()) stock.setCategory(jTextField2.getText());
+                else stock.setCategory((String)jComboBox1.getSelectedItem());
+                if(jCheckBox2.isSelected()) stock.setColor(jTextField3.getText());
+                else stock.setColor((String)jComboBox2.getSelectedItem());
+                if(jCheckBox3.isSelected()) stock.setSize(jTextField4.getText());
+                else stock.setSize((String)jComboBox3.getSelectedItem());
+                
+                //concatinating the year-month-date
+                String concatinatedDate = jTextField7.getText()+"-"+jTextField8.getText()+"-"+jTextField9.getText();
+                stock.setBuying_date(concatinatedDate);
+                
+                System.out.println("pass");
+                //update the stock in Stock class
+                sqlManager.changeStockInfo(stock);
+                jLabel1.setForeground(Color.GREEN);
+                jLabel1.setText("stock was updated!");
+            }
+            else{
+                jLabel1.setForeground(Color.RED);
+                jLabel1.setText("invalid update action!");
+            }
             
-            //concatinating the year-month-date
-            String concatinatedDate = jTextField7.getText()+"-"+jTextField8.getText()+"-"+jTextField9.getText();
-            stock.setBuying_date(concatinatedDate);
-            
-            //update the stock in Stock class
-            sqlManager.changeStockInfo(stock);
-            jLabel1.setForeground(Color.GREEN);
-            jLabel1.setText("stock was updated!");
         }
         catch(NumberFormatException e){
             System.out.println(e.getMessage());
@@ -490,10 +499,16 @@ public class ChangeStockInfo extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // SUBMIT button event (updating stock table)
-        sqlManager.updateStockTable();
-        refresh();
-        jLabel1.setForeground(Color.GREEN);
-        jLabel1.setText("stock was submitted!");
+        if (stock!=null) {
+            sqlManager.updateStockTable();
+            refresh();
+            jLabel1.setForeground(Color.GREEN);
+            jLabel1.setText("stock was submitted!");
+        }
+        else {
+            jLabel1.setForeground(Color.RED);
+            jLabel1.setText("invalid submit action!");
+        }
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
@@ -541,8 +556,11 @@ public class ChangeStockInfo extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // CANCEL button event
         refresh();
-        initializeStock(lastSid);
-
+        if (stock!=null) initializeStock(lastSid);
+        else {
+            jLabel1.setForeground(Color.RED);
+            jLabel1.setText("invalid cancel action!");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void initializeStock(String sid){

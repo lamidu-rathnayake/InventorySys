@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 public class SQLManagerNew {
     // Defining the essential attributes for sql connection
     protected static final String url = "jdbc:mysql://localhost:3306/new_cloth_shop_test";
@@ -19,7 +17,6 @@ public class SQLManagerNew {
     protected static final String password = "lamidu@123";
     protected static Connection connection;
     protected static PreparedStatement statement;
-
 
     // CONNECTION
     // gives the connection
@@ -33,7 +30,6 @@ public class SQLManagerNew {
     protected static void closeConnection() throws SQLException {
         connection.close();
     }
-
 
     // INSERTING AND SELECTING
     // fetches the data from tables
@@ -50,6 +46,7 @@ public class SQLManagerNew {
             return null;
         }
     }
+
     //overload getResult
     protected static ResultSet getResult(String query, Object[] array){
         ResultSet results;
@@ -78,6 +75,7 @@ public class SQLManagerNew {
             return null;
         }
     }
+
     // inserts data into table
     protected static int insertData(String query, Object[] array) {
         int flag = 0;
@@ -107,7 +105,6 @@ public class SQLManagerNew {
         }
         return flag;
     }
-
 
     // SUB FUNCTIONS
     //this function for the selling history window

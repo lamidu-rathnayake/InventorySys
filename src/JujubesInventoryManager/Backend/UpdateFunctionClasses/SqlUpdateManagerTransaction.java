@@ -14,8 +14,8 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
     //<<<<1>>>> search event
     public void initializeTransaction(int transaction_id){            
         initializeTransactionFromdb(transaction_id);
-        initializeCustomerFromdb();
-        initializeTransactionItemFromdb();   
+        if(transaction!=null)initializeCustomerFromdb();
+        if(transaction!=null)initializeTransactionItemFromdb();   
     }
     public void initializeTransactionFromdb(int transaction_id){
         //get transaction info <<< transaction table
@@ -84,6 +84,10 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
         createTransactionItem(this.transaction.getTransaction_id(), stockIds, quantities, amounts);
     }
 
+    public Transaction getTransactionObj(){
+        if (transaction!=null) return this.transaction;
+        else return null;
+    }
 
     //<<<<2>>>> update event
     //change date

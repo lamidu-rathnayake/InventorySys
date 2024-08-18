@@ -5,6 +5,9 @@
 package JujubesInventoryManager.Frontend;
 import JujubesInventoryManager.Backend.SQLManagerNew;
 import JujubesInventoryManager.Backend.UpdateFunctionClasses.SqlUpdateManagerTransaction;
+import JujubesInventoryManager.Backend.UpdateFunctionClasses.Transaction;
+
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
 import java.util.List;
@@ -12,7 +15,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -24,6 +26,7 @@ import javax.swing.table.JTableHeader;
  */
 public class ChangeTransactionInfo extends javax.swing.JFrame{
     SqlUpdateManagerTransaction updateManager;
+    Transaction transaction;
     List<Integer> stockIds;
     List<Integer> quantities;
     List<Double> amounts;
@@ -613,14 +616,26 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
         // SEARCH EVENT
         try{
             updateManager.initializeTransaction(Integer.parseInt(jTextField16.getText()));
-            jLabel8.setText("");
-            initializeArrays();
-            initializeTextFields();
-            initializeTable();
-            initializeLabels();
+            transaction = updateManager.getTransactionObj();
+            if (transaction!=null){
+                jLabel8.setText("");
+                initializeArrays();
+                initializeTextFields();
+                initializeTable();
+                initializeLabels();
+            }
+            else{
+                jLabel8.setForeground(Color.RED);
+                jLabel8.setText("transaction id is not exist");
+            }
         }
         catch(NumberFormatException ex){
-            jLabel8.setText("Invalid user input");
+            jLabel8.setForeground(Color.RED);
+            jLabel8.setText("Invalid transaction id");
+        } 
+        catch(Exception ex){
+            jLabel8.setForeground(Color.RED);
+            jLabel8.setText(ex.getMessage());
         } 
       
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -629,17 +644,25 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
         // SEARCH EVENT
         try{
             updateManager.initializeTransaction(SQLManagerNew.getLastTid());
-            jLabel8.setText("");
-            initializeArrays();
-            initializeTextFields();
-            initializeTable();
-            initializeLabels();
-            
+            transaction = updateManager.getTransactionObj();
+            if (transaction!=null){
+                jLabel8.setText("");
+                initializeArrays();
+                initializeTextFields();
+                initializeTable();
+                initializeLabels();
+            }
+            else{
+                jLabel8.setForeground(Color.RED);
+                jLabel8.setText("transaction id is not exist");
+            }
+
             //text field 
             jTextField16.setText(String.valueOf(updateManager.getTransactionId()));
         }
-        catch(NumberFormatException ex){
-            jLabel8.setText("Invalid user input");
+        catch(Exception ex){
+            jLabel8.setForeground(Color.RED);
+            jLabel8.setText(ex.getMessage());
         } 
     }//GEN-LAST:event_jButton9ActionPerformed
 //    refresh
@@ -661,10 +684,18 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
             }
         }
         catch(NumberFormatException ex){
+            jLabel8.setForeground(Color.RED);
             jLabel8.setText("Invalid stock_id or quantity");
         }
         catch(NullPointerException ex){
             System.out.println(ex.getMessage());
+            jLabel8.setForeground(Color.RED);
+            jLabel8.setText("Invalid action before initialization");
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+            jLabel8.setForeground(Color.RED);
             jLabel8.setText("Invalid action before initialization");
         }
         
@@ -695,11 +726,18 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
                 }
             }
             else{
+                jLabel8.setForeground(Color.RED);
                 jLabel8.setText("Table is empty");
             }
         }
         catch(NullPointerException ex){
             System.out.println(ex.getMessage());
+            jLabel8.setForeground(Color.RED);
+            jLabel8.setText("Invalid action before initialization");
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            jLabel8.setForeground(Color.RED);
             jLabel8.setText("Invalid action before initialization");
         }
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -885,6 +923,11 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
         catch(NumberFormatException ex){
             jLabel8.setText("invalid contact number");
         }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+            jLabel8.setText("invalid action");
+        }
     }
     
     //cancel changes
@@ -906,6 +949,10 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
         catch(NullPointerException ex){
             System.out.println(ex.getMessage());
             jLabel8.setText("Invalid action before initialization");
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+            jLabel8.setText("invalid action");
         }
     }
     
@@ -957,6 +1004,12 @@ public class ChangeTransactionInfo extends javax.swing.JFrame{
         catch (NumberFormatException exc) {
             System.out.println(exc.getMessage());
             jLabel8.setText("Invalid stock ID or quantity"); //for invalid number
+            return -1;
+        }
+        catch(Exception ex){
+            System.out.println(ex.getMessage());
+            System.out.println(ex.getStackTrace());
+            jLabel8.setText("invalid action");
             return -1;
         }
 }
