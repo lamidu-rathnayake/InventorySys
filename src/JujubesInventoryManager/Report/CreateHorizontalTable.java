@@ -59,4 +59,18 @@ public class CreateHorizontalTable extends CreateVirticleTable{
             }
         }
     }
+
+    public static void main(String[] args) {
+        Object[][] data = {
+            {"Name", "Age", "Salary"},
+            {"chamidu rathnayake", 28, 50000.0},
+            {"Jane Smith", 34, 60000.0},
+            {"Emily Johnson", 22, 45000.0}
+        };
+        
+        String filePath = "resources\\reports\\analysisDoc.xlsx";
+        CreateVirticleTable tableCreater = new CreateHorizontalTable();
+        tableCreater.writeIntoTheExcel(filePath, data);
+
+    }
 }
