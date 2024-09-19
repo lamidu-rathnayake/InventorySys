@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -403,39 +404,49 @@ public class AnalyticsViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        
+        List<Object[]> rows = new ArrayList<>();
+        
         // get summery print
         if(jTable1.getRowCount()>0){
-            
             DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-            int rowcnt = tableModel.getRowCount()+1;
-            int columncnt = tableModel.getColumnCount();
-            System.out.println(rowcnt);
-            Object[][] rows = new Object[rowcnt][columncnt]; // defining 2d array with lenths
             
-            for(int i = 0; i<rowcnt; i++){
+            int rowcnt = tableModel.getRowCount();
+            int columncnt = tableModel.getColumnCount();
+            
+            Object[] row = new Object[columncnt];
+            
+            //appending the rows to the array
+            for(int i = 0; i < rowcnt; i++){
+                
+                //appending the column names 
                 if (i == 0){
                     for(int j = 0; j < columncnt; j++){
-                        rows[i][j] = jTable1.getColumnName(j);
+                        String colName = (String)jTable1.getColumnName(j);
+                        row[j] = colName;
                     }
+                    rows.add(row);
                 }
-                else{
-                    int index = 1;
-                    for(int k = 0; k < columncnt; k++) {
-                        rows[i][k] = tableModel.getValueAt(index, k);
-                    }
+
+                //appending the rows
+                row = new Object[columncnt];
+                for(int j = 0; j < columncnt; j++){
+                    Object colItem = jTable1.getValueAt(i, j);
+                    row[j] = colItem;
                 }
-                
+                rows.add(row);
             }
+
+
             
-            for(int i = 0; i < rowcnt; i++){
-                for(int j = 0; j < columncnt; j++) {
-                    System.out.print(rows[i][j] + " ");
+            for (Object[] currentRow : rows){
+                for (int i = 0; i < currentRow.length; i++ ){
+                    System.out.println(currentRow[i] + " > " + i);
                 }
                 System.out.println("");
             }
+            
         }
-        else System.out.println("please get analysis");
-        
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
