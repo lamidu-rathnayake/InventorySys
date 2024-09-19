@@ -5,8 +5,12 @@
 package JujubesInventoryManager.Frontend;
 
 import JujubesInventoryManager.Backend.SQLStatisticsManagerNew;
+import JujubesInventoryManager.Report.CreateHorizontalTable;
+import JujubesInventoryManager.Report.CreateVirticleTable;
+
 import java.awt.Component;
 import java.awt.Image;
+import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,10 +24,13 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import jnafilechooser.api.JnaFileChooser;
 
 
 public class AnalyticsViewer extends javax.swing.JFrame {
-
+    
+    String filePath = "C:\\Users\\Lamidu Rathnayake\\Documents\\";
+    
     public AnalyticsViewer()   {
         initComponents();
         Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
@@ -142,36 +149,47 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(34, 40, 49));
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setToolTipText("");
+        jTextField1.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField1.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField1.setEnabled(false);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setBackground(new java.awt.Color(34, 40, 49));
         jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setToolTipText("");
+        jTextField2.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField2.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField2.setEnabled(false);
 
         jTextField3.setBackground(new java.awt.Color(34, 40, 49));
         jTextField3.setForeground(new java.awt.Color(255, 255, 255));
         jTextField3.setToolTipText("");
+        jTextField3.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField3.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField3.setEnabled(false);
 
         jTextField4.setBackground(new java.awt.Color(34, 40, 49));
         jTextField4.setForeground(new java.awt.Color(255, 255, 255));
         jTextField4.setToolTipText("");
+        jTextField4.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField4.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField4.setEnabled(false);
 
         jTextField5.setBackground(new java.awt.Color(34, 40, 49));
         jTextField5.setForeground(new java.awt.Color(255, 255, 255));
         jTextField5.setToolTipText("");
+        jTextField5.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField5.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField5.setEnabled(false);
 
         jTextField6.setBackground(new java.awt.Color(34, 40, 49));
         jTextField6.setForeground(new java.awt.Color(255, 255, 255));
         jTextField6.setToolTipText("");
+        jTextField6.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField6.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField6.setEnabled(false);
 
@@ -206,15 +224,14 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton3.setText("Get summery print");
+        jButton3.setText("Get print");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton4.setText("Get detailed print");
+        jButton4.setText("...");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -259,19 +276,20 @@ public class AnalyticsViewer extends javax.swing.JFrame {
                         .addGap(86, 86, 86)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jProgressBar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2))
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(98, 98, 98)))
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 566, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jLabel1)
@@ -279,7 +297,7 @@ public class AnalyticsViewer extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(58, 58, 58)
+                .addGap(40, 40, 40)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jCheckBox1)
@@ -301,13 +319,13 @@ public class AnalyticsViewer extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3))
+                .addGap(67, 67, 67)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addGap(39, 39, 39))
         );
 
         getContentPane().add(jPanel1);
@@ -404,55 +422,69 @@ public class AnalyticsViewer extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try{
+            List<Object[]> rows = new ArrayList<>();
         
-        List<Object[]> rows = new ArrayList<>();
-        
-        // get summery print
-        if(jTable1.getRowCount()>0){
-            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-            
-            int rowcnt = tableModel.getRowCount();
-            int columncnt = tableModel.getColumnCount();
-            
-            Object[] row = new Object[columncnt];
-            
-            //appending the rows to the array
-            for(int i = 0; i < rowcnt; i++){
+            // get summery print
+            if(jTable1.getRowCount()>0){
                 
-                //appending the column names 
-                if (i == 0){
+                DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+
+                int rowcnt = tableModel.getRowCount();
+                int columncnt = tableModel.getColumnCount();
+
+                Object[] row = new Object[columncnt];
+
+                //appending the rows to the array
+                for(int i = 0; i < rowcnt; i++){
+
+                    //appending the column names 
+                    if (i == 0){
+                        for(int j = 0; j < columncnt; j++){
+                            String colName = (String)jTable1.getColumnName(j);
+                            row[j] = colName;
+                        }
+                        rows.add(row);
+                    }
+
+                    //appending the rows
+                    row = new Object[columncnt];
                     for(int j = 0; j < columncnt; j++){
-                        String colName = (String)jTable1.getColumnName(j);
-                        row[j] = colName;
+                        Object colItem = jTable1.getValueAt(i, j);
+                        row[j] = colItem;
                     }
                     rows.add(row);
                 }
 
-                //appending the rows
-                row = new Object[columncnt];
-                for(int j = 0; j < columncnt; j++){
-                    Object colItem = jTable1.getValueAt(i, j);
-                    row[j] = colItem;
-                }
-                rows.add(row);
+                CreateVirticleTable table = new CreateVirticleTable();
+                table.writeIntoTheExcel(filePath+"\\analysisDoc.xlsx", rows);
             }
-
-
-            
-            for (Object[] currentRow : rows){
-                for (int i = 0; i < currentRow.length; i++ ){
-                    System.out.println(currentRow[i] + " > " + i);
-                }
-                System.out.println("");
-            }
-            
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
         }
-        
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // get detailed print
+        // TODO add your handling code here:
+        try{
+            JnaFileChooser ch = new JnaFileChooser();
+            ch.setMode(JnaFileChooser.Mode.Directories);
+            boolean action = ch.showOpenDialog(this); 
+            if(action){
+                File file = ch.getSelectedFile();
+                filePath = file.getPath();
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void getUserInput(int stMode){
         Thread newThread = new Thread(()->{

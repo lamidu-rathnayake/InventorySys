@@ -5,11 +5,14 @@
 package JujubesInventoryManager.Frontend;
 
 import JujubesInventoryManager.Backend.SQLManagerNew;
+import JujubesInventoryManager.Report.CreateVirticleTable;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Image;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,15 +20,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import jnafilechooser.api.JnaFileChooser;
 
 /**
  *
  * @author User
  */
 public class TransactionHistoryViewer extends javax.swing.JFrame {
-
+    String filePath = "C:\\Users\\Lamidu Rathnayake\\Documents\\JUJUBES print docs\\transaction history docs";
     /**
      * Creates new form ViewTransactions
      */
@@ -77,6 +82,8 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(34, 40, 49));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
@@ -118,36 +125,42 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(34, 40, 49));
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setToolTipText("");
+        jTextField1.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField1.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField1.setEnabled(false);
 
         jTextField2.setBackground(new java.awt.Color(34, 40, 49));
         jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setToolTipText("");
+        jTextField2.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField2.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField2.setEnabled(false);
 
         jTextField3.setBackground(new java.awt.Color(34, 40, 49));
         jTextField3.setForeground(new java.awt.Color(255, 255, 255));
         jTextField3.setToolTipText("");
+        jTextField3.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField3.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField3.setEnabled(false);
 
         jTextField4.setBackground(new java.awt.Color(34, 40, 49));
         jTextField4.setForeground(new java.awt.Color(255, 255, 255));
         jTextField4.setToolTipText("");
+        jTextField4.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField4.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField4.setEnabled(false);
 
         jTextField5.setBackground(new java.awt.Color(34, 40, 49));
         jTextField5.setForeground(new java.awt.Color(255, 255, 255));
         jTextField5.setToolTipText("");
+        jTextField5.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField5.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField5.setEnabled(false);
 
         jTextField6.setBackground(new java.awt.Color(34, 40, 49));
         jTextField6.setForeground(new java.awt.Color(255, 255, 255));
         jTextField6.setToolTipText("");
+        jTextField6.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField6.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField6.setEnabled(false);
 
@@ -207,6 +220,20 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText(" ");
 
+        jButton3.setText("Get print");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("...");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -216,33 +243,40 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jButton2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jCheckBox2)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButton1)))))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE))
         );
@@ -273,7 +307,11 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addGap(30, 30, 30)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,6 +483,68 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jCheckBox1.setSelected(!flag);
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try{
+            // print event
+            List<Object[]> rows = new ArrayList<>();
+
+            // get summery print
+            if(jTable1.getRowCount()>0){
+                DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+
+                int rowcnt = tableModel.getRowCount();
+                int columncnt = tableModel.getColumnCount();
+
+                Object[] row = new Object[columncnt];
+
+                //appending the rows to the array
+                for(int i = 0; i < rowcnt; i++){
+
+                    //appending the column names 
+                    if (i == 0){
+                        for(int j = 0; j < columncnt; j++){
+                            String colName = (String)jTable1.getColumnName(j);
+                            row[j] = colName;
+                        }
+                        rows.add(row);
+                    }
+
+                    //appending the rows
+                    row = new Object[columncnt];
+                    for(int j = 0; j < columncnt; j++){
+                        Object colItem = jTable1.getValueAt(i, j);
+                        row[j] = colItem;
+                    }
+                    rows.add(row);
+                }
+
+                CreateVirticleTable table = new CreateVirticleTable();
+                table.writeIntoTheExcel(filePath+"\\JUJUBESTransactionsHistory.xlsx", rows);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try{
+            JnaFileChooser ch = new JnaFileChooser();
+            ch.setMode(JnaFileChooser.Mode.Directories);
+            boolean action = ch.showOpenDialog(this); 
+            if(action){
+                File file = ch.getSelectedFile();
+                filePath = file.getPath();
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private int validateInt(JTextField t){
         int x;
         try{
@@ -576,6 +676,8 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
