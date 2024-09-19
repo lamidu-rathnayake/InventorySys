@@ -4,35 +4,41 @@
  */
 package JujubesInventoryManager.Frontend;
 
-import JujubesInventoryManager.Backend.SQLStatisticsManagerNew;
+import JujubesInventoryManager.Backend.SQLManagerNew;
+import JujubesInventoryManager.Report.CreateVirticleTable;
 import java.awt.Color;
 import java.awt.Component;
-import java.sql.SQLException;
+import java.awt.Image;
+import java.io.File;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
+import jnafilechooser.api.JnaFileChooser;
 
 /**
  *
  * @author User
  */
 public class TransactionHistoryViewer extends javax.swing.JFrame {
-
+    String filePath = "C:\\Users\\Lamidu Rathnayake\\Documents\\JUJUBES print docs\\transaction history docs";
     /**
      * Creates new form ViewTransactions
      */
     public TransactionHistoryViewer() {
         initComponents();
-        jScrollPane1.getViewport().setBackground(new java.awt.Color(34, 40, 49));
-        jScrollPane1.setBorder(null);
-        jScrollPane1.getViewport().setBorder(null);
+        loadIcon();
+        initializeTable();
+
         JTableHeader header = jTable1.getTableHeader();
         header.setDefaultRenderer(new DefaultTableCellRenderer() {
             @Override
@@ -75,11 +81,15 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(34, 40, 49));
         jPanel1.setLayout(new javax.swing.BoxLayout(jPanel1, javax.swing.BoxLayout.LINE_AXIS));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Transaction History");
         getContentPane().setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel2.setBackground(new java.awt.Color(49, 54, 63));
@@ -115,36 +125,42 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(34, 40, 49));
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
         jTextField1.setToolTipText("");
+        jTextField1.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField1.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField1.setEnabled(false);
 
         jTextField2.setBackground(new java.awt.Color(34, 40, 49));
         jTextField2.setForeground(new java.awt.Color(255, 255, 255));
         jTextField2.setToolTipText("");
+        jTextField2.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField2.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField2.setEnabled(false);
 
         jTextField3.setBackground(new java.awt.Color(34, 40, 49));
         jTextField3.setForeground(new java.awt.Color(255, 255, 255));
         jTextField3.setToolTipText("");
+        jTextField3.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField3.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField3.setEnabled(false);
 
         jTextField4.setBackground(new java.awt.Color(34, 40, 49));
         jTextField4.setForeground(new java.awt.Color(255, 255, 255));
         jTextField4.setToolTipText("");
+        jTextField4.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField4.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField4.setEnabled(false);
 
         jTextField5.setBackground(new java.awt.Color(34, 40, 49));
         jTextField5.setForeground(new java.awt.Color(255, 255, 255));
         jTextField5.setToolTipText("");
+        jTextField5.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField5.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField5.setEnabled(false);
 
         jTextField6.setBackground(new java.awt.Color(34, 40, 49));
         jTextField6.setForeground(new java.awt.Color(255, 255, 255));
         jTextField6.setToolTipText("");
+        jTextField6.setCaretColor(new java.awt.Color(255, 255, 255));
         jTextField6.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField6.setEnabled(false);
 
@@ -179,6 +195,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
 
         jTable1.setAutoCreateRowSorter(true);
         jTable1.setBackground(new java.awt.Color(34, 40, 49));
+        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -198,6 +215,25 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
 
         jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
+        jLabel4.setBackground(new java.awt.Color(195, 197, 255));
+        jLabel4.setForeground(new java.awt.Color(165, 177, 255));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText(" ");
+
+        jButton3.setText("Get print");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("...");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -207,32 +243,40 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jButton1))
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3))
-                            .addGap(18, 18, 18)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jButton2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addComponent(jCheckBox2))
+                                    .addComponent(jButton1)))))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jCheckBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 989, Short.MAX_VALUE))
         );
@@ -263,7 +307,13 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton4)
+                    .addComponent(jButton3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(30, 30, 30)
                 .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74))
             .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -288,6 +338,7 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         Thread newThread = new Thread(()->{
             try{
+                List<Object[]> rows;
                 jProgressBar1.setVisible(true);
                 if(jCheckBox1.isSelected()){
                     int intValidateFlag = 0;
@@ -320,18 +371,25 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                         String sDate = jTextField1.getText() + "-" +jTextField2.getText() + "-" + jTextField3.getText();
                         String eDate = jTextField4.getText() + "-" +jTextField5.getText() + "-" + jTextField6.getText();
 
-                        System.out.println(sDate);
-                        System.out.println(eDate);
                         jProgressBar1.setValue(5);
-                        List<Object[]> rows = SQLStatisticsManagerNew.getHistory(sDate,eDate);
+                        rows = SQLManagerNew.getHistory(sDate,eDate);
                         jProgressBar1.setValue(10);
-                        loadTable(rows);
+                        if(rows.size()>0){
+                            loadTable(rows);
+                            jLabel4.setText("");
+                        }
+                        else {
+                            jLabel4.setForeground(Color.RED);
+                            jLabel4.setText("No record exist");
+                            jProgressBar1.setVisible(false);
+                        }
+                        
                     }
                 }
                 else if (jCheckBox2.isSelected()){
                     String sDate = getYearMonth()+"-01";
                     jProgressBar1.setValue(5);
-                    List<Object[]> rows = SQLStatisticsManagerNew.getHistory(sDate,getYearMonthDate());
+                    rows = SQLManagerNew.getHistory(sDate,getYearMonthDate());
                     jProgressBar1.setValue(10);
                     
                     jTextField1.setText(getYear());
@@ -341,11 +399,19 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
                     jTextField5.setText(getMonth());
                     jTextField6.setText(getDate());
                     
-                    loadTable(rows);
+                    if(rows.size()>0){
+                        loadTable(rows);
+                        jLabel4.setText("");
+                    }
+                    else {
+                        jLabel4.setForeground(Color.RED);
+                        jLabel4.setText("No record exist");
+                        jProgressBar1.setVisible(false);
+                    }
                 }
             }
-            catch(SQLException exc){
-                System.out.println(exc.getMessage());
+            catch (Exception ex){
+                System.out.println("Exception from submit: " + ex.getMessage());
             }
         
         });
@@ -359,6 +425,51 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jTextField4.setText("");
         jTextField5.setText("");
         jTextField6.setText("");
+        
+        jLabel4.setText("");
+        
+        jTextField1.setBackground(new java.awt.Color(34,40,49));
+        jTextField2.setBackground(new java.awt.Color(34,40,49));
+        jTextField3.setBackground(new java.awt.Color(34,40,49));
+        jTextField4.setBackground(new java.awt.Color(34,40,49));
+        jTextField5.setBackground(new java.awt.Color(34,40,49));
+        jTextField6.setBackground(new java.awt.Color(34,40,49));
+        
+        javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
+        jTable1.setModel(model);
+        model.addColumn("Transaction_id");//0
+        model.addColumn("Date");//1
+        model.addColumn("Customer Name");//2
+        model.addColumn("Customer Number");//3
+        model.addColumn("Customer Address");//4
+        model.addColumn("Customer Email");//5
+        model.addColumn("Stock Id");//6
+        model.addColumn("Category Id");//7
+        model.addColumn("Category");//8
+        model.addColumn("Color");//9
+        model.addColumn("Size");//10
+        model.addColumn("Count");//11
+        model.addColumn("Amount");//12
+        
+        TableColumn column0 = jTable1.getColumnModel().getColumn(0);
+        TableColumn column1 = jTable1.getColumnModel().getColumn(1);
+        TableColumn column6 = jTable1.getColumnModel().getColumn(6);
+        TableColumn column7 = jTable1.getColumnModel().getColumn(7);
+        TableColumn column8 = jTable1.getColumnModel().getColumn(8);
+        TableColumn column9 = jTable1.getColumnModel().getColumn(9);
+        TableColumn column10 = jTable1.getColumnModel().getColumn(10);
+        TableColumn column11 = jTable1.getColumnModel().getColumn(11);
+
+        column0.setPreferredWidth(20);
+        column1.setPreferredWidth(20);
+        column6.setPreferredWidth(20);
+        column7.setPreferredWidth(20);
+        column8.setPreferredWidth(20);
+        column9.setPreferredWidth(20);
+        column10.setPreferredWidth(30);
+        column11.setPreferredWidth(15);
+        
+        jProgressBar1.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
@@ -372,61 +483,161 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
         jCheckBox1.setSelected(!flag);
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        try{
+            // print event
+            List<Object[]> rows = new ArrayList<>();
+
+            // get summery print
+            if(jTable1.getRowCount()>0){
+                DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+
+                int rowcnt = tableModel.getRowCount();
+                int columncnt = tableModel.getColumnCount();
+
+                Object[] row = new Object[columncnt];
+
+                //appending the rows to the array
+                for(int i = 0; i < rowcnt; i++){
+
+                    //appending the column names 
+                    if (i == 0){
+                        for(int j = 0; j < columncnt; j++){
+                            String colName = (String)jTable1.getColumnName(j);
+                            row[j] = colName;
+                        }
+                        rows.add(row);
+                    }
+
+                    //appending the rows
+                    row = new Object[columncnt];
+                    for(int j = 0; j < columncnt; j++){
+                        Object colItem = jTable1.getValueAt(i, j);
+                        row[j] = colItem;
+                    }
+                    rows.add(row);
+                }
+
+                CreateVirticleTable table = new CreateVirticleTable();
+                table.writeIntoTheExcel(filePath+"\\JUJUBESTransactionsHistory.xlsx", rows);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        try{
+            JnaFileChooser ch = new JnaFileChooser();
+            ch.setMode(JnaFileChooser.Mode.Directories);
+            boolean action = ch.showOpenDialog(this); 
+            if(action){
+                File file = ch.getSelectedFile();
+                filePath = file.getPath();
+            }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     private int validateInt(JTextField t){
         int x;
         try{
             x = Integer.parseInt(t.getText());
             return 1;
         }
-        catch(NumberFormatException exc){
-            System.out.println(exc.getMessage());
+        catch (Exception ex){
+            System.out.println("Exception from submit: " + ex.getMessage());
             return -1;
         }
     }
+
+// 2024-08-18 updated by Lamidu Rathnayake
+    private void initializeTable() {
+        jScrollPane1.getViewport().setBackground(new java.awt.Color(34, 40, 49));
+        jScrollPane1.setBorder(null);
+        jScrollPane1.getViewport().setBorder(null);
+        // ... rest of table initialization
+    }
+
+    private void loadIcon() {
+        try {
+            Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();
+            setIconImage(icon);
+        } catch (Exception e) {
+            System.err.println("Error loading icon: " + e.getMessage());
+            // Optionally, you can set a default icon or take other appropriate action
+            // For example: setIconImage(defaultIcon);
+        }
+    }
+
     private void loadTable(List<Object[]> rows) {
         Thread newThread = new Thread(()->{
-            javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
-            jTable1.setModel(model);
-            model.addColumn("Transaction_id");//0
-            model.addColumn("Date");//1
-            model.addColumn("Customer Name");//2
-            model.addColumn("Customer Number");//3
-            model.addColumn("Customer Address");//4
-            model.addColumn("Stock Id");//5
-            model.addColumn("Category Id");//6
-            model.addColumn("Category");//7
-            model.addColumn("Color");//8
-            model.addColumn("Size");//9
-            model.addColumn("Count");//10
-            model.addColumn("Amount");//11
+            try{
+                javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
+                jTable1.setModel(model);
+                model.addColumn("Transaction_id");//0
+                model.addColumn("Date");//1
+                model.addColumn("Customer Name");//2
+                model.addColumn("Customer Number");//3
+                model.addColumn("Customer Address");//4
+                model.addColumn("Customer Email");//5
+                model.addColumn("Stock Id");//6
+                model.addColumn("Category Id");//7
+                model.addColumn("Category");//8
+                model.addColumn("Color");//9
+                model.addColumn("Size");//10
+                model.addColumn("Count");//11
+                model.addColumn("Amount");//12
 
-            TableColumn column0 = jTable1.getColumnModel().getColumn(0);
-            TableColumn column1 = jTable1.getColumnModel().getColumn(1);
-            TableColumn column5 = jTable1.getColumnModel().getColumn(5);
-            TableColumn column6 = jTable1.getColumnModel().getColumn(6);
-            TableColumn column9 = jTable1.getColumnModel().getColumn(9);
-            TableColumn column10 = jTable1.getColumnModel().getColumn(10);
+                TableColumn column0 = jTable1.getColumnModel().getColumn(0);
+                TableColumn column1 = jTable1.getColumnModel().getColumn(1);
+                TableColumn column3 = jTable1.getColumnModel().getColumn(3);
+                TableColumn column6 = jTable1.getColumnModel().getColumn(6);
+                TableColumn column7 = jTable1.getColumnModel().getColumn(7);
+                TableColumn column8 = jTable1.getColumnModel().getColumn(8);
+                TableColumn column9 = jTable1.getColumnModel().getColumn(9);
+                TableColumn column10 = jTable1.getColumnModel().getColumn(10);
+                TableColumn column11 = jTable1.getColumnModel().getColumn(11);
 
-            column0.setPreferredWidth(20);
-            column1.setPreferredWidth(40);
-            column5.setPreferredWidth(20);
-            column6.setPreferredWidth(20);
-            column9.setPreferredWidth(20);
-            column10.setPreferredWidth(20);
+                column0.setPreferredWidth(20);
+                column1.setPreferredWidth(50);
+                column3.setPreferredWidth(50);
+                column6.setPreferredWidth(20);
+                column7.setPreferredWidth(20);
+                column8.setPreferredWidth(20);
+                column9.setPreferredWidth(20);
+                column10.setPreferredWidth(30);
+                column11.setPreferredWidth(10);
 
 
-            int progressU = 90/rows.size();
-            int progressC = 10; 
-            for(Object[] row:rows){
-                model.addRow(row);
-                progressC += progressU;
-                jProgressBar1.setValue(progressC);
-                try {
-                    Thread.sleep(40);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(TransactionHistoryViewer.class.getName()).log(Level.SEVERE, null, ex);
+                int progressU = 90/rows.size();
+                int progressC = 10; 
+                for(Object[] row:rows){
+                    model.addRow(row);
+                    progressC += progressU;
+                    jProgressBar1.setValue(progressC);
+                    try {
+                        Thread.sleep(40);
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(TransactionHistoryViewer.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (ArrayIndexOutOfBoundsException ex){
+                        System.out.println(ex.getMessage());
+                    } catch (Exception ex){
+                        System.out.println("Exception from submit: " + ex.getMessage());
+                    }
+                    
                 }
             }
+            catch (Exception ex){
+                System.out.println("Exception from submit: " + ex.getMessage());
+            }
+            
             jProgressBar1.setVisible(false);
         });
         newThread.start();
@@ -465,11 +676,14 @@ public class TransactionHistoryViewer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
