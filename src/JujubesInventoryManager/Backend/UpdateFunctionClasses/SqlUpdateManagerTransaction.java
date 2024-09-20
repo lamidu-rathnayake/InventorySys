@@ -177,7 +177,6 @@ public class SqlUpdateManagerTransaction extends SqlUpdateManager{
                     selling_price * quantity
                 }
             );
-
             i++;
         }
          
