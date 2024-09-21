@@ -73,12 +73,4 @@ public class CreateHorizontalTable extends CreateVirticleTable{
         
     }
 
-    public static void main(String[] args) {
-         
-                
-        // String filePath = "resources\\reports\\analysisDoc.xlsx";
-        // CreateVirticleTable tableCreater = new CreateHorizontalTable();
-        // tableCreater.writeIntoTheExcel(filePath, data);
-
-    }
 }
