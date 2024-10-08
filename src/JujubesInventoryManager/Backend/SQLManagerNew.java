@@ -1,38 +1,55 @@
 package JujubesInventoryManager.Backend;
 
+// make sure you have added the jdbc connector for MYSQL before going to run this program 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class SQLManagerNew {
-    // Defining the essential attributes for sql connection
+
+    // IN THIS CLASS, I USE STATIC CONTEXT MOST OF THE TIME BECAUSE I DONT NEED MORE INSTENCE OF THIS CLASS AT THE SAME TIME TIME 
+    // AND TO MAKE THE PROGRAM LITTLE MORE CLEAN
+
+    // DECLARING INSTENCE VARIABLES
+    // defining the essential attributes for sql connection
     protected static final String url = "jdbc:mysql://localhost:3306/jujubes_database";
     protected static final String userName = "root";
     protected static final String password = "lamidu@123";
+
+    // here we declaring consction and statement for the sql connection
+    // we using only these two for all the stuff 
+    // might we will use additional instences as we go
     protected static Connection connection;
     protected static PreparedStatement statement;
 
     // CONNECTION
     // gives the connection
+    // basically in this programm i tried to use one connection rather many connection due to small project
+    // might using one connection instence is not suit for big projects due to load balancing i guess
+    // but here we use one.
     protected static Connection getConnection() throws SQLException {
         if (connection == null || connection.isClosed()) {
             connection = DriverManager.getConnection(url, userName, password);
         }
         return connection;
     }
+
     // closes the connection
     protected static void closeConnection() throws SQLException {
         connection.close();
     }
 
     // INSERTING AND SELECTING
-    // fetches the data from tables
+    // -- fetches the data from tables --
+    // here we return some result according to the given query parameter and the sDate "starting date" and eDate "ending date"
+    // we dont close the connection here but make sure you have closed it after the "ResultSet" iteration  
     protected static ResultSet getResult(String query, String sDate, String eDate){
         ResultSet results;
         try{
@@ -47,13 +64,20 @@ public class SQLManagerNew {
         }
     }
 
-    //overload getResult
+    // OVERLOADING getResult
+    // we overload the getResult method by adding new array parameter to get the condition values as array
+    // so here you have all the flexibility to change the query and the array according to how query requires the order of the array 
     protected static ResultSet getResult(String query, Object[] array){
         ResultSet results;
         try{
             statement = getConnection().prepareStatement(query);
-            
-            int i = 1;// used to indecate the current column "starts from the 1st column"
+            // used to indecate the current column "starts from the 1st column"
+            int i = 1; 
+            // setting up the statement by iterating the array
+            // this for loop iterate the array(para) and triggers the date type of the each item 
+            // then set up the statement according to the identified data type of the each item
+            // syntax for identifing the data type -> item instenceof relaventDataTypeClass
+            // then we cast the each item into the relavent datatype by using "prenthesis casting"    
             for (Object object : array) {
                 if (object instanceof String)
                     statement.setString(i, (String) object);
@@ -65,9 +89,8 @@ public class SQLManagerNew {
                     statement.setLong(i, (Long) object);
                 else
                     throw new SQLException("invalid data input");
-                i++;
-            } // setting up the statement by iterating the array
-
+                    i++;
+            } 
             results = statement.executeQuery();          
             return results;
         }catch(SQLException exc){
@@ -77,6 +100,7 @@ public class SQLManagerNew {
     }
 
     // inserts data into table
+    // array(para) includes the column names which to be filled in the sql script
     protected static int insertData(String query, Object[] array) {
         int flag = 0;
         try {
