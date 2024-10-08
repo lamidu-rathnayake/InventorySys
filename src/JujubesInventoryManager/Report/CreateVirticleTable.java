@@ -111,12 +111,4 @@ public class CreateVirticleTable {
         cell.setCellStyle(boldStyle);
     }
 
-    public static void main(String[] args) {
-        
-        
-        // String filePath = "resources\\reports\\analysisDoc.xlsx";
-        // CreateVirticleTable tableCreater = new CreateVirticleTable();
-        // tableCreater.writeIntoTheExcel(filePath, data);
-
-    }
 }
