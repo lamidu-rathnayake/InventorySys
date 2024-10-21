@@ -36,6 +36,9 @@ public class AnalyticsViewer extends javax.swing.JFrame {
         Image icon = new ImageIcon(this.getClass().getResource("letter-j.png")).getImage();    
         setIconImage(icon);
         
+        javax.swing.table.DefaultTableModel model = new javax.swing.table.DefaultTableModel();
+        jTable1.setModel(model);
+        
         jScrollPane1.getViewport().setBackground(new java.awt.Color(34, 40, 49));
         jScrollPane1.setBorder(null);
         jScrollPane1.getViewport().setBorder(null);
@@ -357,6 +360,7 @@ public class AnalyticsViewer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             getUserInput(jComboBox1.getSelectedIndex());
+            jLabel4.setText("");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -426,7 +430,7 @@ public class AnalyticsViewer extends javax.swing.JFrame {
             List<Object[]> rows = new ArrayList<>();
         
             // get summery print
-            if(jTable1.getRowCount()>0){
+            if(jTable1.getModel().getRowCount()>0){
                 
                 DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
 
@@ -458,8 +462,13 @@ public class AnalyticsViewer extends javax.swing.JFrame {
 
                 CreateVirticleTable table = new CreateVirticleTable();
                 table.writeIntoTheExcel(filePath+"\\analysisDoc.xlsx", rows);
+                jLabel4.setText("print was created");
+            }
+            else{
+                jLabel4.setText("unable to create print");
             }
         }catch(Exception e){
+            jLabel4.setText("unable to create print");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         }

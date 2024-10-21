@@ -554,10 +554,10 @@ public class ChangeStockInfo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // CANCEL button event
-        refresh();
-        if (stock!=null) initializeStock(lastSid);
+        // CANCEL button event        
+        if (stock != null) initializeStock(lastSid);
         else {
+            refresh();
             jLabel1.setForeground(Color.RED);
             jLabel1.setText("invalid cancel action!");
         }
